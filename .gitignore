@@ -4,3 +4,6 @@ WebContent
 .project
 .settings
 bin
+bower_components
+node_modules
+npm-debug.log
