@@ -7,5 +7,5 @@ bin
 bower_components
 node_modules
 npm-debug.log
-src/main/webapp/dist/styles/vendor
-src/main/webapp/dist/scripts/vendor
+src/main/webapp/resources/styles/vendor
+src/main/webapp/resources/scripts/vendor

@@ -5,8 +5,8 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     
      clean: {
-	    folder: "src/main/webapp/dist/styles/vendor/",
-	    folder2: "src/main/webapp/dist/scripts/vendor/"
+	    folder: "src/main/webapp/resources/styles/vendor/",
+	    folder2: "src/main/webapp/resources/scripts/vendor/"
     },
     
     
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
   	bowercopy:{
   		
   		options:{
-  			 destPrefix: 'src/main/webapp/dist/scripts/vendor'
+  			 destPrefix: 'src/main/webapp/resources/scripts/vendor'
   		},
   		
   		
@@ -47,7 +47,7 @@ module.exports = function(grunt) {
          
          bootstrap_css: {
         	 options:{
-        		 destPrefix: 'src/main/webapp/dist/styles/vendor'
+        		 destPrefix: 'src/main/webapp/resources/styles/vendor'
         	 },
         	 
              files: {
