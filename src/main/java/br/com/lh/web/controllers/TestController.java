@@ -1,4 +1,4 @@
-package br.com.lh.controllers;
+package br.com.lh.web.controllers;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
