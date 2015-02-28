@@ -22,7 +22,7 @@ public class ClientController {
 		if (isAdmin) {
 			return new ModelAndView("admin");
 		}
-		return new ModelAndView("home");
+		return new ModelAndView("client");
 	}
 
 
