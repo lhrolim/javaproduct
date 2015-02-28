@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class IndexController {
+public class ClientController {
 
-	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/client**" }, method = RequestMethod.GET)
 	public ModelAndView getData() {
 		SecurityContext ctx = SecurityContextHolder.getContext();
 		Authentication auth = ctx.getAuthentication();
@@ -24,28 +25,5 @@ public class IndexController {
 		return new ModelAndView("home");
 	}
 
-	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
-	public ModelAndView adminPage() {
-
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Hello World");
-		model.addObject("message", "This is protected page - Admin Page!");
-		model.setViewName("admin");
-
-		return model;
-
-	}
-
-	@RequestMapping(value = "/dba**", method = RequestMethod.GET)
-	public ModelAndView dbaPage() {
-
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Hello World");
-		model.addObject("message", "This is protected page - Database Page!");
-		model.setViewName("admin");
-
-		return model;
-
-	}
 
 }

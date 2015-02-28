@@ -31,7 +31,7 @@
 							<div class="error-signin">${error}</div>
 						</c:if>
 
-						<form class="form-signin" action="<c:url value='/login' />"
+						<form class="form-signin" action="<c:url value='/' />"
 							method='POST'>
 							<input type="text" class="form-control" placeholder="Usuário"
 								name="username" required autofocus> <input

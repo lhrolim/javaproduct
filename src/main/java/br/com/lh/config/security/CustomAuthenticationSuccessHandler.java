@@ -34,7 +34,7 @@ public class CustomAuthenticationSuccessHandler implements
 			redirectStrategy.sendRedirect(request, response, "/admin");
 			return;
 		}
-		redirectStrategy.sendRedirect(request, response, "/home");
+		redirectStrategy.sendRedirect(request, response, "/client");
 	}
 
 }

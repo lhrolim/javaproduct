@@ -37,15 +37,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests()
 		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-		.antMatchers("/home/**").access("hasRole('ROLE_CLIENT') or hasRole('ROLE_ADMIN')")
-		.antMatchers("/").access("hasRole('ROLE_CLIENT') or hasRole('ROLE_ADMIN')")
-				
-				.and().formLogin().loginPage("/login")
-				.failureUrl("/login?error").usernameParameter("username")
+		.antMatchers("/client/**").access("hasRole('ROLE_CLIENT') or hasRole('ROLE_ADMIN')")
+
+				.and().formLogin().loginPage("/").failureUrl("/?error")
+				.usernameParameter("username")
 				.passwordParameter("password")
 				.successHandler(customHandler)
 				.and()
-				.logout().logoutSuccessUrl("/login?logout").and().csrf();
+.logout()
+				.logoutSuccessUrl("/?logout").and().csrf();
 
 	}
 }
