@@ -11,11 +11,11 @@
 			<column name="id" type="int" autoIncrement="true">
 				<constraints primaryKeyName="pk_user_id" primaryKey="true" nullable="false"/>
 			</column>
-			<column name="user" type="java.sql.Types.VARCHAR(100)">
+			<column name="login" type="java.sql.Types.VARCHAR(100)">
 				<constraints unique="true" nullable="false"
 					uniqueConstraintName="uq_sec_user_username" />
 			</column>
-			<column name="password" type="java.sql.Types.VARCHAR(100)">
+			<column name="password" type="java.sql.Types.VARCHAR(255)">
 				<constraints nullable="false" />
 			</column>
 			<column name="amlabs_id" type="java.sql.Types.VARCHAR(100)" />

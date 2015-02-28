@@ -12,15 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public ModelAndView getData() {
 		SecurityContext ctx = SecurityContextHolder.getContext();
 		Authentication auth = ctx.getAuthentication();
-		Boolean isClient = auth.getAuthorities().contains(
-				new SimpleGrantedAuthority("ROLE_CLIENT"));
 		Boolean isAdmin = auth.getAuthorities().contains(
 				new SimpleGrantedAuthority("ROLE_ADMIN"));
-
 		if (isAdmin) {
 			return new ModelAndView("admin");
 		}
