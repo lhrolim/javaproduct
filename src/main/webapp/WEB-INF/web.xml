@@ -23,11 +23,42 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 <!-- 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> -->
 <!-- 	</listener> -->
 
+
+ 	<listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+
+	<listener>
+	    <listener-class>liquibase.integration.servlet.LiquibaseServletListener</listener-class>
+	</listener>
+
+   <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:/logs/log4j.xml</param-value>
+   </context-param>
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/rest-servlet.xml
 		</param-value>
 	</context-param>
+	
+	<context-param>
+    	<param-name>liquibase.changelog</param-name>
+    	<param-value>database/pilaochangelog.xml</param-value>
+	</context-param>
+
+	<context-param>
+	    <param-name>liquibase.datasource</param-name>
+	    <param-value>java:comp/env/jdbc/pilaointegration</param-value>
+	</context-param>
+
+	<context-param>
+	    <param-name>liquibase.onerror.fail</param-name>
+	    <param-value>true</param-value>
+	</context-param>
+
+	
 
 </web-app>  
