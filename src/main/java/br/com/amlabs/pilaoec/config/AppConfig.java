@@ -11,6 +11,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 import br.com.amlabs.pilaoec.config.security.SecurityConfig;
 
+
 @EnableWebMvc
 @Configuration
 @ComponentScan({ "br.com.amlabs*" })

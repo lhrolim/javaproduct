@@ -14,13 +14,13 @@
 	<mvc:annotation-driven />
 
 
-	<mvc:resources mapping="/resources/vendorscripts/**"
-		location="/resources/scripts/vendor/" />
-	<mvc:resources mapping="/resources/vendorcss/**"
-		location="/resources/styles/vendor/" />
+	<mvc:resources mapping="/resources/vendorscripts/**" location="/resources/scripts/vendor/" />
+	
+	<mvc:resources mapping="/resources/vendorcss/**" location="/resources/styles/vendor/" />
+	
 	<mvc:resources mapping="/resources/css/**" location="/resources/styles/internal/" />
 	<mvc:resources mapping="/resources/images/**" location="/resources/images/" />
-
+	<mvc:resources mapping="/resources/scripts/**" location="/resources/styles/internal/" />
 
 
 </beans>

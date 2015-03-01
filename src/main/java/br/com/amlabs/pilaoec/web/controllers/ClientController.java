@@ -7,10 +7,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.amlabs.pilaoec.web.model.AmlabsUserData;
 import br.com.amlabs.pilaoec.web.model.User;
 import br.com.amlabs.pilaoec.web.model.UserDAO;
+import br.com.amlabs.pilaoec.web.model.integration.IntegrationData;
 
 @Controller
 public class ClientController {
@@ -18,14 +21,30 @@ public class ClientController {
 	@Autowired
 	private UserDAO userDAO;
 
+	@Autowired
+	private IntegrationData integrationData;
+
 	@RequestMapping(value = { "/client**" }, method = RequestMethod.GET)
 	public ModelAndView getData() {
 		SecurityContext ctx = SecurityContextHolder.getContext();
 		Authentication auth = ctx.getAuthentication();
 		User user = userDAO.Find(auth.getName());
 
-		return new ModelAndView("client");
+		// Invoke AMLABS method to get other data
+		AmlabsUserData amlabsData = getAmlabsUserData();
+		user.setAmlabsData(amlabsData);
+		return new ModelAndView("client", "clientdata", user);
 	}
 
+	private AmlabsUserData getAmlabsUserData() {
+		RestTemplate restTemplate = new RestTemplate();
+		String retrieveURL = integrationData.getRetrieveURL();
+		if (retrieveURL != null) {
+			AmlabsUserData amlabsData = restTemplate.getForObject(retrieveURL, AmlabsUserData.class);
+			return amlabsData;
+		}
+		return AmlabsUserData.MockInstance();
+
+	}
 
 }

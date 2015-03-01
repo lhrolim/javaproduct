@@ -17,14 +17,14 @@ public class User implements IBaseEntity {
 	private Integer normalLeadTime;
 	private Integer expressLeadTime;
 	private Integer minimumrequest;
+	private AmlabsUserData amlabsData;
 
 	public User() {
 		// TODO Auto-generated method stub
 
 	}
 
-	public User(String login, Boolean admin, String amlabs_id, String remarks, Double normalPrice, Double expressPrice, Integer normalLeadTime, Integer expressLeadTime,
-			Integer minimumrequest) {
+	public User(String login, Boolean admin, String amlabs_id, String remarks, Double normalPrice, Double expressPrice, Integer normalLeadTime, Integer expressLeadTime, Integer minimumrequest) {
 		super();
 		this.login = login;
 		this.admin = admin;
@@ -115,6 +115,14 @@ public class User implements IBaseEntity {
 
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+
+	public void setAmlabsData(AmlabsUserData amlabsData) {
+		this.amlabsData = amlabsData;
+	}
+
+	public AmlabsUserData getAmlabsData() {
+		return amlabsData;
 	}
 
 }

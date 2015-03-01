@@ -35,9 +35,12 @@ module.exports = function(grunt) {
          
          angular: {
              files: {
-                 'angular.js': 'angularjs/angular.js',
+                 'angular.js': 'angular/angular.js',
+                 'angularsmarttable.js': 'angular-smart-table/dist/smart-table.js',
              }
          },
+         
+       
          
          bootstrap: {
              files: {
