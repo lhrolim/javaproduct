@@ -1,8 +1,8 @@
-package br.com.lh.config.core;
+package br.com.amlabs.pilaoec.config.core;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import br.com.lh.config.AppConfig;
+import br.com.amlabs.pilaoec.config.AppConfig;
 
 public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

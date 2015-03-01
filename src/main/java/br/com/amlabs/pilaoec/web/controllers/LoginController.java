@@ -1,4 +1,4 @@
-package br.com.lh.web.controllers;
+package br.com.amlabs.pilaoec.web.controllers;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

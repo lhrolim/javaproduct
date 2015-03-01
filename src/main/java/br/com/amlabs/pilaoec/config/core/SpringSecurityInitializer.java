@@ -1,4 +1,4 @@
-package br.com.lh.config.core;
+package br.com.amlabs.pilaoec.config.core;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

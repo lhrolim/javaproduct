@@ -11,18 +11,8 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
-	<!-- <context:component-scan base-package="br.com.lh" /> -->
 	<mvc:annotation-driven />
 
-	<!-- <bean -->
-	<!-- class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
-	<!-- <property name="prefix"> -->
-	<!-- <value>/resources/pages/</value> -->
-	<!-- </property> -->
-	<!-- <property name="suffix"> -->
-	<!-- <value>.jsp</value> -->
-	<!-- </property> -->
-	<!-- </bean> -->
 
 	<mvc:resources mapping="/resources/vendorscripts/**"
 		location="/resources/scripts/vendor/" />
@@ -31,20 +21,6 @@
 	<mvc:resources mapping="/resources/css/**" location="/resources/styles/internal/" />
 	<mvc:resources mapping="/resources/images/**" location="/resources/images/" />
 
-<!-- 	<bean -->
-<!-- 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"> -->
-<!-- 		<property name="targetClass"> -->
-<!-- 			<value>org.springframework.util.Log4jConfigurer</value> -->
-<!-- 		</property> -->
-<!-- 		<property name="targetMethod"> -->
-<!-- 			<value>initLogging</value> -->
-<!-- 		</property> -->
-<!-- 		<property name="arguments"> -->
-<!-- 			<list> -->
-<!-- 				<value>classpath:/logs/log4j.xml</value> -->
-<!-- 			</list> -->
-<!-- 		</property> -->
-<!-- 	</bean> -->
 
 
 </beans>

@@ -1,14 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.com.lh</groupId>
-	<artifactId>pilaoecommerce</artifactId>
+	<groupId>br.com.amlabs</groupId>
+	<artifactId>pilaoec</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Product Integration</name>
+	<name>Pilao ECommerce</name>
 
 	<properties>
 		<spring.version>4.1.4.RELEASE</spring.version>
+		<hibernate.version>4.2.4.FINAL</hibernate.version>
 		<spring.security.version>3.2.5.RELEASE</spring.security.version>
 		<mysql.version>5.1.34</mysql.version>
 	</properties>
@@ -20,6 +21,26 @@
 	</parent>
 
 	<dependencies>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.hibernate</groupId> -->
+<!-- 			<artifactId>hibernate-core</artifactId> -->
+<!-- 			<version>${hibernate.version}</version> -->
+<!-- 		</dependency> -->
+		
+<!-- 		  <dependency> -->
+<!--             <groupId>org.hibernate</groupId> -->
+<!--             <artifactId>hibernate-entitymanager</artifactId> -->
+<!--             <version>${hibernate.version}</version> -->
+<!--         </dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework</groupId> -->
+<!-- 			<artifactId>spring-orm</artifactId> -->
+<!-- 			<version>${spring.version}</version> -->
+<!-- 		</dependency> -->
+ 
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>

@@ -25,37 +25,14 @@
 			<column name="normalleadtime" type="int" />
 			<column name="expressleadtime" type="int" />
 			<column name="minimumrequest" type="int" />
+			<column name="admin" type="boolean" defaultValueBoolean="false" />
 
 		</createTable>
 		
 
 	</changeSet>
 
-	<changeSet id="2" author="rolim">
-		<createTable tableName="sec_role">
-			<column name="id" type="int" autoIncrement="true">
-				<constraints primaryKeyName="pk_role_id" primaryKey="true" nullable="false"/>
-			</column>
-			<column name="role" type="varchar(100)">
-				<constraints nullable="false" unique="true"
-					uniqueConstraintName="uq_sec_role_role" />
-			</column>
-		</createTable>
-
-
-	</changeSet>
-
-
-	<changeSet id="3" author="rolim">
-		<createTable tableName="sec_user_role">
-			<column name="role_id" type="int">
-				<constraints nullable="false" foreignKeyName="fk_rel_ur_role" referencedColumnNames="id" referencedTableName="sec_role"/>
-			</column>
-			<column name="user_id" type="int">
-				<constraints nullable="false" foreignKeyName="fk_rel_ur_user" referencedColumnNames="id" referencedTableName="sec_user"/>
-			</column>
-		</createTable>
-	</changeSet>
+	
 
 	
 

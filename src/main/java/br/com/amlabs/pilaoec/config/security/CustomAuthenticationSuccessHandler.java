@@ -1,4 +1,4 @@
-package br.com.lh.config.security;
+package br.com.amlabs.pilaoec.config.security;
 
 import java.io.IOException;
 

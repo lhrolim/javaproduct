@@ -1,4 +1,4 @@
-package br.com.lh.config;
+package br.com.amlabs.pilaoec.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,11 +9,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import br.com.lh.config.security.SecurityConfig;
+import br.com.amlabs.pilaoec.config.security.SecurityConfig;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({ "br.com.lh*" })
+@ComponentScan({ "br.com.amlabs*" })
 @Import({ SecurityConfig.class })
 @ImportResource({ "classpath:META-INF/spring-config.xml" })
 public class AppConfig {
