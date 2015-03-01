@@ -2,15 +2,15 @@ package br.com.amlabs.pilaoec.util;
 
 public class MySqlPaginationUtil {
 
-	public static String getPaginationUtil(int page, int pageSize) {
+	public static String getPaginationUtil(Integer page, Integer pageSize) {
 
-		String limitQuery = " limit {0}";
+		String limitQuery = " limit ";
 		if (page > 1) {
-			limitQuery = String.format(limitQuery, page * pageSize + ","
-					+ pageSize);
+			limitQuery += (page * pageSize + "," + pageSize);
 		} else {
-			limitQuery = String.format(limitQuery, pageSize);
+			limitQuery += pageSize.toString();
 		}
+
 		return limitQuery;
 	}
 

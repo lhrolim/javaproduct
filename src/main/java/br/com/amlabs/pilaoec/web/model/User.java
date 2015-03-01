@@ -124,5 +124,5 @@ public class User implements IBaseEntity {
 	public AmlabsUserData getAmlabsData() {
 		return amlabsData;
 	}
-
+	
 }

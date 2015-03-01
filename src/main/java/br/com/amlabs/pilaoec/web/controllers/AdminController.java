@@ -11,6 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.amlabs.pilaoec.web.model.User;
 import br.com.amlabs.pilaoec.web.model.UserDAO;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Controller
 public class AdminController {
 
@@ -18,14 +21,17 @@ public class AdminController {
 	private UserDAO userDAO;
 
 	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
-	public ModelAndView adminPage() {
+	public ModelAndView adminPage() throws JsonProcessingException {
 
 		ModelAndView model = new ModelAndView();
 		model.addObject("title", "Spring Security Hello World");
 		model.addObject("message", "This is protected page - Admin Page!");
 		model.setViewName("admin");
 
-		List<User> users = userDAO.FindAll(1, 100);
+		List<User> users = userDAO.FindAllClients(1, 100);
+
+		ObjectMapper mapper = new ObjectMapper();
+		model.addObject("users", mapper.writeValueAsString(users));
 
 		return model;
 

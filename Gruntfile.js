@@ -57,7 +57,30 @@ module.exports = function(grunt) {
                  'bootstrap.min.css': 'bootstrap/dist/css/bootstrap.min.css',
                  'bootstrap-theme.min.css': 'bootstrap/dist/css/bootstrap-theme.min.css',
              }
-         }
+         },
+         
+         fontawesome: {
+        	 options:{
+        		 destPrefix: 'src/main/webapp/resources/styles/vendor'
+        	 },
+        	 
+             files: {
+                 'fontawesome.min.css': 'components-font-awesome/css/font-awesome.min.css'
+             }
+         },
+         
+         folders: {
+        	 
+        	 options:{
+        		 destPrefix: 'src/main/webapp/resources/'
+        	 },
+        	 
+             files: {
+                 // Note: when copying folders, the destination (key) will be used as the location for the folder 
+                 'fonts': 'components-font-awesome/fonts/',
+             }
+         },
+         
   	}
   
   

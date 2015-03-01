@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AmlabsUserData {
 
+	private String nome;
+	private String email;
 	private String status;
 	private Double preco;
 	private String endereco;
@@ -15,6 +17,22 @@ public class AmlabsUserData {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Double getPreco() {

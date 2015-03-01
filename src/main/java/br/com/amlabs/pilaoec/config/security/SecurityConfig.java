@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String USER_QUERY = "select login,password,1 from sec_user where login=?";
-	private static final String USER_ROLE_QUERY = "select case admin when true then 'ROLE_ADMIN' when false then 'ROLE_CLIENT' end  from sec_user where login=?";
+	private static final String USER_ROLE_QUERY = "select login,case admin when true then 'ROLE_ADMIN' when false then 'ROLE_CLIENT' end  from sec_user where login=?";
 	@Autowired
 	private DataSource dataSource;
 

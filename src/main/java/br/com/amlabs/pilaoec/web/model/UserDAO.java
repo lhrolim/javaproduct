@@ -52,9 +52,9 @@ public class UserDAO extends JdbcDaoSupport {
 
 	}
 
-	public List<User> FindAll(int page, int pageSize) {
+	public List<User> FindAllClients(int page, int pageSize) {
 
-		String sql = "SELECT * FROM sec_user " + MySqlPaginationUtil.getPaginationUtil(page, pageSize);
+		String sql = "SELECT * FROM sec_user where admin = false " + MySqlPaginationUtil.getPaginationUtil(page, pageSize);
 
 		List<User> users = (List<User>) getJdbcTemplate().query(sql, new BeanPropertyRowMapper<User>(User.class));
 
