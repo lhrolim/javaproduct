@@ -40,6 +40,7 @@
 <body>
 	
 
+	<div class="spinner" data-class="spinner" id="mainspinner"></div>
 	<input type="hidden" id="clientdata" value='${clientdata}' />
 	<input type="hidden" id="serverpath" value="<c:url value="/" />">
 
