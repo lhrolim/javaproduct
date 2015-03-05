@@ -11,9 +11,13 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.amlabs.pilaoec.web.model.AmlabsUserData;
+import br.com.amlabs.pilaoec.web.model.ClientData;
 import br.com.amlabs.pilaoec.web.model.User;
 import br.com.amlabs.pilaoec.web.model.UserDAO;
 import br.com.amlabs.pilaoec.web.model.integration.IntegrationData;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class ClientController {
@@ -25,15 +29,28 @@ public class ClientController {
 	private IntegrationData integrationData;
 
 	@RequestMapping(value = { "/client**" }, method = RequestMethod.GET)
-	public ModelAndView getData() {
+	public ModelAndView getData() throws JsonProcessingException {
 		SecurityContext ctx = SecurityContextHolder.getContext();
 		Authentication auth = ctx.getAuthentication();
+		ModelAndView model = new ModelAndView();
+		model.setViewName("client");
+
 		User user = userDAO.Find(auth.getName());
 
 		// Invoke AMLABS method to get other data
 		AmlabsUserData amlabsData = getAmlabsUserData();
 		user.setAmlabsData(amlabsData);
-		return new ModelAndView("client", "clientdata", user);
+
+		ClientData clientData = new ClientData();
+
+		clientData.setUser(user);
+		// clientData.setProductImg();
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonData = mapper.writeValueAsString(clientData);
+		model.addObject("clientdata", jsonData);
+
+		return model;
 	}
 
 	private AmlabsUserData getAmlabsUserData() {

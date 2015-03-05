@@ -36,6 +36,7 @@ module.exports = function(grunt) {
          angular: {
              files: {
                  'angular.js': 'angular/angular.js',
+                 'angular-sanitize.js': 'angular-sanitize/angular-sanitize.min.js',
                  'angularsmarttable.js': 'angular-smart-table/dist/smart-table.js',
              }
          },
