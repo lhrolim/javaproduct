@@ -23,7 +23,7 @@
 <script src="<c:url value="/resources/vendorscripts/angularsmarttable.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/bootstrap.js" />"></script>
 <script src="<c:url value="/resources/scripts/admin.js" />" charset="utf-8"></script>
-<script src="<c:url value="/resources/scripts/util/stringutil.js" />"></script>
+<script src="<c:url value="/resources/scripts/util/stringutil.js" />" charset="utf-8"></script>
 <script src="<c:url value="/resources/scripts/services/paginationService.js" />"></script>
 <script src="<c:url value="/resources/scripts/services/alertService.js" />"></script>
 <script src="<c:url value="/resources/scripts/ajax_interceptor.js" />"></script>

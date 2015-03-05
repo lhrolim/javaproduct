@@ -19,10 +19,7 @@ admin.controller('AdminController', [ '$scope','paginationService','alertService
 					   return elem.id != user.id; 
 				});//result -> [1,2,3,4]
 				$scope.users = result;
-				alert("Usuário deletado com sucesso".replace(/[\u0080-\u024F]/g,
-	                      function(a) {
-                    return '&#'+a.charCodeAt(0)+';';
-                  }));
+				alert("Usuário deletado com sucesso");
 			});
 		});
 	}
