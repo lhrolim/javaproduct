@@ -1,16 +1,33 @@
 var admin = angular.module('pilaocommerce', [ 'smart-table' ]);
 
 
-admin.controller('AdminController', [ '$scope','paginationService', function(scope,paginationService) {
+admin.controller('AdminController', [ '$scope','paginationService','alertService','$http', function($scope,paginationService,alertService,$http) {
 	
 	var usersJS = $('#users').val();
 	var users = JSON.parse(usersJS);
 	
+	$scope.users = users;
+	
 	var ctrl = this;
 
 	
+	$scope.deleteUser=function(user){
+		alertService.confirm("Confirma deleção do usuário {0}?".format(user.login),function(data){
+			var serverPath = $('#serverpath').val();
+			$http.post(serverPath + "admin/delete?userid={0}".format(user.id)).success(function (data) {
+				var result = $scope.users.filter(function(elem){
+					   return elem.id != user.id; 
+				});//result -> [1,2,3,4]
+				$scope.users = result;
+				alert("Usuário deletado com sucesso".replace(/[\u0080-\u024F]/g,
+	                      function(a) {
+                    return '&#'+a.charCodeAt(0)+';';
+                  }));
+			});
+		});
+	}
 	
-	  this.displayed = [];
+	
 
 	  this.callServer = function callServer(tableState) {
 

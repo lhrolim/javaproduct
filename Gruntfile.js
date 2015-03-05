@@ -50,6 +50,12 @@ module.exports = function(grunt) {
              }
          },
          
+         bootbox: {
+             files: {
+                 'bootbox.js': 'bootbox/bootbox.js',
+             }
+         },
+         
          bootstrap_css: {
         	 options:{
         		 destPrefix: 'src/main/webapp/resources/styles/vendor'

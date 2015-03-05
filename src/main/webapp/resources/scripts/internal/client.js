@@ -1,9 +1,9 @@
 
 
-var admin = angular.module('pilaocommerce', [ 'smart-table', 'ngSanitize' ]);
+var admin = angular.module('pilaocommerce', [ 'ngSanitize' ]);
 
-admin.controller('ClientController', [ '$scope','$http', 'paginationService',
-		function($scope,$http, paginationService) {
+admin.controller('ClientController', [ '$scope','$http',
+		function($scope,$http) {
 
 	
 	

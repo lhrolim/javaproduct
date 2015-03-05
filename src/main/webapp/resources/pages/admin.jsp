@@ -17,11 +17,16 @@
 
 
 <script src="<c:url value="/resources/vendorscripts/jquery.js" />"></script>
+<script src="<c:url value="/resources/vendorscripts/spin.js" />"></script>
+<script src="<c:url value="/resources/vendorscripts/bootbox.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angular.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angularsmarttable.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/bootstrap.js" />"></script>
-<script src="<c:url value="/resources/scripts/admin.js" />"></script>
-<script src="<c:url value="/resources/scripts/paginationService.js" />"></script>
+<script src="<c:url value="/resources/scripts/admin.js" />" charset="utf-8"></script>
+<script src="<c:url value="/resources/scripts/util/stringutil.js" />"></script>
+<script src="<c:url value="/resources/scripts/services/paginationService.js" />"></script>
+<script src="<c:url value="/resources/scripts/services/alertService.js" />"></script>
+<script src="<c:url value="/resources/scripts/ajax_interceptor.js" />"></script>
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -32,9 +37,9 @@
 
 <html>
 <body ng-app="pilaocommerce">
-	
-	<input type="hidden" id="users" value='${users}'/>
 
+	<input type="hidden" id="users" value='${users}' />
+	<input type="hidden" id="serverpath" value="<c:url value="/" />">
 
 	<c:url value="/logout" var="logoutUrl" />
 	<section class="header">
@@ -47,25 +52,31 @@
 
 		<h2>Gerenciar Usuários</h2>
 
-		<table class="table" st-pipe="callServer" st-table="displayed">
+		<table class="table table-striped" st-pipe="callServer" st-table="users">
 			<thead>
 				<tr>
-					<th st-sort="id">Usuário</th>
-					<th st-sort="name">Nome</th>
-					<th st-sort="age">Email</th>
+					<th st-sort="login">Usuário</th>
+					<th st-sort="login">Nome</th>
+					<th st-sort="login">Email</th>
+					<th>
 				</tr>
 
 				<tr>
 					<th><input st-search="'login'" /></th>
-					<th><input st-search="'name'" /></th>
-					<th><input st-search="'email'" /></th>
+					<th><input st-search="'login'" /></th>
+					<th><input st-search="'login'" /></th>
 				</tr>
 			</thead>
 			<tbody ng-show="!isLoading">
-				<tr ng-repeat="row in displayed">
+				<tr ng-repeat="row in users">
 					<td>{{row.login}}</td>
-					<td>{{row.amlabsdata.name}}</td>
-					<td>{{row.amlabsdata.email}}</td>
+					<td>{{row.login}}</td>
+					<td>{{row.login}}</td>
+					<td>
+					<button type="button" class="btn btn-sm btn-danger" ng-click="deleteUser(row)">
+						<i class="fa fa-remove"> </i>
+					</button>
+					</td>
 				</tr>
 			</tbody>
 			<tbody ng-show="isLoading">

@@ -18,14 +18,14 @@
 
 
 <script src="<c:url value="/resources/vendorscripts/jquery.js" />"></script>
+<script src="<c:url value="/resources/vendorscripts/bootbox.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/spin.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angular.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angular-sanitize.js" />"></script>
-<script src="<c:url value="/resources/vendorscripts/angularsmarttable.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/bootstrap.js" />"></script>
 
 
-<script src="<c:url value="/resources/scripts/client.js" />"></script>
+<script src="<c:url value="/resources/scripts/client.js" />" charset="utf-8"></script>
 <script src="<c:url value="/resources/scripts/ajax_interceptor.js" />"></script>
 <script src="<c:url value="/resources/scripts/paginationService.js" />"></script>
 
@@ -43,7 +43,6 @@
 	<div class="spinner" data-class="spinner" id="mainspinner"></div>
 	<input type="hidden" id="clientdata" value='${clientdata}' />
 	<input type="hidden" id="serverpath" value="<c:url value="/" />">
-
 
 <%-- 	<input type="hidden" id="serverpath" value="<c:url value="/">" /> --%>
 

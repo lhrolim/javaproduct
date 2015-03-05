@@ -12,10 +12,13 @@ public class DBInitializer {
 
 	@Autowired
 	private UserDAO dao;
-	
+
 	@PostConstruct
 	public void init() {
 		dao.CreateAdminIfAbsent();
+		// for (int i = 0; i < 100; i++) {
+		// dao.SaveClient(User.createRandomMockClient(), "client");
+		// }
 	}
-	
+
 }

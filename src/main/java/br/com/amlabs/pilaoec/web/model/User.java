@@ -124,5 +124,18 @@ public class User implements IBaseEntity {
 	public AmlabsUserData getAmlabsData() {
 		return amlabsData;
 	}
+
+	public static User createRandomMockClient() {
+		User user = new User();
+		user.admin = false;
+		user.amlabs_id = "10";
+		user.login = "client" + (Math.random() * 10000);
+		user.setNormalPrice(10.0);
+		user.setExpressPrice(10.0);
+		user.setNormalLeadTime(5);
+		user.setExpressLeadTime(5);
+		user.setMinimumrequest(10);
+		return user;
+	}
 	
 }
