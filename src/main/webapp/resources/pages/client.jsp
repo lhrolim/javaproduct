@@ -107,139 +107,85 @@
 							</div>
 						</div>
 					</div>
-					<div class="itemrow">
-						<div class="col col-6of6">
-							<label class="doitonline">Faça o seu pedido Online!</label>
+
+					<div ng-show="completed">
+						<div class="itemrow">
+							<div class="col col-6of6">
+								<div class="alert alert-success" role="alert"><icon class="fa fa-check"></icon> Pedido realizado com sucesso! Você receberá um email de confirmação em breve</div>
+								<button class="btn btn-primary" ng-click="newrequest()">Novo Pedido</button>
+							</div>
 						</div>
 					</div>
 
-					<div class="itemrow">
-						<div class="col col-6of6 form-group">
-							<table class="table table-bordered">
-								<thead>
-									<th>Preço Unitário</th>
-									<th>Quantidade</th>
-									<th>Sub-Total</th>
-								</thead>
-								<tbody>
-									<tr>
-										<td>R{{productData.unitprice | currency}}</td>
-										<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.quantity">
-										</td>
-										<td>R{{request.totalproductprice | currency}}</td>
-									</tr>
-								</tbody>
-							</table>
+					<div ng-show="!completed">
+						<div class="itemrow">
+							<div class="col col-6of6">
+								<label class="doitonline">Faça o seu pedido Online!</label>
+							</div>
+						</div>
+
+						<div class="itemrow">
+							<div class="col col-6of6 form-group">
+								<table class="table table-bordered">
+									<thead>
+										<th>Preço Unitário</th>
+										<th>Quantidade</th>
+										<th>Sub-Total</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td>R{{productData.unitprice | currency}}</td>
+											<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.quantity">
+											</td>
+											<td>R{{request.totalproductprice | currency}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+						<div class="itemrow">
+
+							<div class="col col-4of6">
+
+								<table>
+									<thead>
+										<th colspan="2"><label class="control-label" style="font-size: 20px">Endereço de Entrega</label></th>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="width: 280px;"><br>Cliente ABC LTDA <br>Cliente ABC <br>134.356.333/0001-12</td>
+											<td><br>Av. Paulista, 122, 12 Andar <br>Bairro Jardins <br>São Paulo,SP, 01233-333</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="col col-2of6 form-group">
+								<fieldset>
+									<label class="control-label">Tipo de Entrega: </label>
+									<div class="radio">
+										<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="express" checked ng-model="request.leadtype">
+											Expressa ({{clientData.expressLeadTime}} dias úteis) -- R{{clientData.expressPrice | currency}}
+										</label>
+									</div>
+									<div class="radio">
+										<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="normal" ng-model="request.leadtype"> Normal
+											({{clientData.normalLeadTime}} dias úteis) -- R{{clientData.normalPrice| currency}}
+										</label>
+									</div>
+								</fieldset>
+
+								<fieldset class="totalsummary">
+									<label class="control-label">Valor Total:</label> <label class="control-label">R{{getTotalPrice()| currency}}</label>
+								</fieldset>
+								<button class="btn btn-primary" ng-click="submit()" ng-disabled="submitting">
+									Finalizar Pedido</input>
+							</div>
 						</div>
 					</div>
-
-					<div class="itemrow">
-
-						<div class="col col-4of6">
-
-							<table>
-								<thead>
-									<th colspan="2"><label class="control-label" style="font-size:20px">Endereço de Entrega</label></th>
-								</thead>
-								<tbody>
-									<tr>
-										<td style="width: 280px;">Cliente ABC LTDA
-											<p>Cliente ABC
-											<p>134.356.333/0001-12
-										</td>
-										<td>Av. Paulista, 122, 12 Andar
-											<p>Bairro Jardins
-											<p>São Paulo,SP, 01233-333
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="col col-2of6 form-group">
-							<fieldset>
-								<label class="control-label">Tipo de Entrega: </label>
-								<div class="radio">
-									<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="express" checked ng-model="request.leadtype">
-										Expressa ({{clientData.expressLeadTime}} dias úteis) -- R{{clientData.expressPrice | currency}}
-									</label>
-								</div>
-								<div class="radio">
-									<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="normal" ng-model="request.leadtype"> Normal
-										({{clientData.normalLeadTime}} dias úteis) -- R{{clientData.normalPrice| currency}}
-									</label>
-								</div>
-							</fieldset>
-
-							<fieldset class="totalsummary">
-								<label class="control-label">Valor Total:</label> <label class="control-label">R{{getTotalPrice()| currency}}</label>
-							</fieldset>
-							<button class="btn btn-primary" ng-click="submit()">
-								Finalizar Pedido</input>
-						</div>
-
-					</div>
-
 				</div>
 			</div>
 		</div>
-
-		<!-- 			<div class="col-md-4 sidebar"> -->
-		<%-- 				<img src="<c:url value="/resources/images/mock.png" />" style="cursor: pointer"> --%>
-		<!-- 			</div> -->
-
-		<!-- 			<form class="col-md-6 content"> -->
-		<!-- 				<div class="productdescription"> -->
-		<!-- 					<label class="productname" ng-bind-html="productData.description" /> -->
-		<!-- 				</div> -->
-
-
-		<!-- 				<div class="form-group"> -->
-		<!-- 					<table class="table table-bordered"> -->
-		<!-- 						<thead> -->
-		<!-- 							<th>Preço Unitário</th> -->
-		<!-- 							<th>Quantidade</th> -->
-		<!-- 							<th>Sub-Total</th> -->
-		<!-- 						</thead> -->
-		<!-- 						<tbody> -->
-		<!-- 							<tr> -->
-		<!-- 								<td>R{{productData.unitprice | currency}}</td> -->
-		<!-- 								<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.quantity"> -->
-		<!-- 								</td> -->
-		<!-- 								<td>R{{request.totalproductprice | currency}}</td> -->
-		<!-- 							</tr> -->
-		<!-- 						</tbody> -->
-		<!-- 					</table> -->
-
-		<!-- 					<fieldset> -->
-		<!-- 						<label class="control-label"> Tipo de Entrega: </label> -->
-		<!-- 						<div class="radio"> -->
-		<!-- 							<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="express" checked ng-model="request.leadtype"> -->
-		<!-- 								Expressa ({{clientData.expressLeadTime}} dias úteis) -- R{{clientData.expressPrice | currency}} -->
-		<!-- 							</label> -->
-		<!-- 						</div> -->
-		<!-- 						<div class="radio"> -->
-		<!-- 							<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="normal" ng-model="request.leadtype"> Normal -->
-		<!-- 								({{clientData.normalLeadTime}} dias úteis) -- R{{clientData.normalPrice| currency}} -->
-		<!-- 							</label> -->
-		<!-- 						</div> -->
-		<!-- 					</fieldset> -->
-
-		<!-- 					<fieldset class="totalsummary"> -->
-		<!-- 						<label class="control-label">Valor Total:</label> <label class="control-label">R{{getTotalPrice()| currency}}</label> -->
-		<!-- 					</fieldset> -->
-
-
-		<!-- 				</div> -->
-
-
-
-		<!-- 				<button class="btn btn-primary" ng-click="submit()"> -->
-		<!-- 					Finalizar Pedido</input> -->
-		<!-- 			</form> -->
-		<!-- 		</div> -->
-
-
-
 
 	</section>
 </body>

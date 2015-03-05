@@ -85,7 +85,7 @@ public class ClientController {
 	@ResponseBody
 	public String submit(@RequestBody ClientRequestData data) throws JsonProcessingException, InterruptedException {
 		if (integrationData.IsSaveMocked()) {
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		}
 		return "";
 	}

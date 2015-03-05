@@ -30,7 +30,7 @@
 	margin-top: -15px;
 	padding: 0 10px;
 	z-index: 300;
-	width: 1100px;
+	width: 1040px;
 	margin: 0 auto;
 }
 
@@ -70,7 +70,7 @@ h2 {
 }
 
 .col-wrapper, .footer-inner {
-	width: 1020px;
+	width: 1000px;
 	margin: 0 auto 40px;
 	padding: 0 18px;
 }
@@ -116,15 +116,15 @@ ul {
 }
 
 .col-6of6 {
-	width: 840px;
+	width: 926px;
 }
 
 .col-3of6 {
-	width: 420px;
+	width: 430px;
 }
 
 .col-4of6 {
-	width: 560px;
+	width: 580px;
 }
 
 .col-2of6 {

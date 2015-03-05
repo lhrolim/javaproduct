@@ -11,12 +11,13 @@ admin.controller('ClientController', [ '$scope','$http',
 				
 				var clientDataJS = $('#clientdata').val();
 				var clientData = JSON.parse(clientDataJS);
+				
 				$scope.productData = clientData.productData;
 				$scope.clientData = clientData.user;
+				$scope.amlabsData = clientData.user.amlabsData;
 
 				if (!$scope.productData) {
 					$scope.productData = {
-						description : "Descrição mocada: O Melhor Café para sua empresa...",
 						unitprice : "10.0",
 						productid: "85",
 						title: "Pilão CAFITESSE"
@@ -26,7 +27,7 @@ admin.controller('ClientController', [ '$scope','$http',
 				 
 				
 				$scope.request = {
-					quantity : clientData.user.minimumrequest,
+					quantity : $scope.clientData.minimumrequest,
 					leadtype : "express",
 					productid: $scope.productData.productid,
 					amlabsClientId : $scope.clientData.amlabs_id
@@ -55,15 +56,29 @@ admin.controller('ClientController', [ '$scope','$http',
 				return $scope.request.totalproductprice + $scope.request.leadprice;
 			}
 
-			$scope.escape = function(value) {
-				return value;
+			$scope.newrequest = function(value) {
+				var clientData = $scope.clientData;
+				$scope.request = {
+					quantity : $scope.clientData.minimumrequest,
+					leadtype : "express",
+					productid: $scope.productData.productid,
+					amlabsClientId : $scope.clientData.amlabs_id,
+					leadprice:0
+				};
+				$scope.request.totalproductprice =$scope.productData.unitprice * $scope.request.quantity;
+				var leadPrice = $scope.request.leadtype == "express" ? $scope.clientData.expressPrice : $scope.clientData.normalPrice;
+				$scope.request.leadprice = leadPrice;
+				$scope.submitting = false;
+				$scope.completed= false;
 			}
 			
 			$scope.submit = function(){
+				$scope.submitting = true;
 				var serverPath = $('#serverpath').val();
 				$scope.request.totalValue = $scope.getTotalPrice();
 				$http.post(serverPath + "submitclient",$scope.request).success(function (data) {
-					alert("Pedido finalizado com sucesso");
+					$scope.submitting = false;
+					$scope.completed= true;
 				});
 			}
 
