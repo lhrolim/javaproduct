@@ -38,92 +38,205 @@
 
 <html ng-app="pilaocommerce">
 <body>
-	
+
 
 	<div class="spinner" data-class="spinner" id="mainspinner"></div>
 	<input type="hidden" id="clientdata" value='${clientdata}' />
 	<input type="hidden" id="serverpath" value="<c:url value="/" />">
 
-<%-- 	<input type="hidden" id="serverpath" value="<c:url value="/">" /> --%>
+	<%-- 	<input type="hidden" id="serverpath" value="<c:url value="/">" /> --%>
 
 
 	<c:url value="/logout" var="logoutUrl" />
-	<section class="header">
-		<span>
-		
-		<img src="<c:url value="/resources/images/ajax-loader.gif" />" id="loading-indicator" style="display:none">
-		 
-		<img src="<c:url value="/resources/images/pilao-professional-logo.png" />"> <span class="logout"><i class="fa fa-user"></i>
-				${pageContext.request.userPrincipal.name} | <i class="fa fa-sign-out"></i><a href="javascript:formSubmit()"> Logout</a> </span>
-		</span>
-		<form action="${logoutUrl}" method="post" id="logoutForm">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		</form>
-		<script>
-			function formSubmit() {
-				document.getElementById("logoutForm").submit();
-			}
-		</script>
-	</section>
+
+	<div class="header-wrapper">
+		<div id="headerShadow" class="header-shadow"></div>
+		<div class="header">
+			<a class="logo"> <img src="<c:url value="/resources/images/pilao-professional-logo.png" />" alt="PIlão Professional">
+			</a> <span class="headertext">Dúvidas? Entre em contato com a nossa central de vendas! (11)1234-1234</span> <span> <img
+				src="<c:url value="/resources/images/ajax-loader.gif" />" id="loading-indicator" style="display: none"> <img src=""> <span
+				class="logout"><i class="fa fa-user"></i> ${pageContext.request.userPrincipal.name} | <i class="fa fa-sign-out"></i><a
+					href="javascript:formSubmit()"> Logout</a> </span>
+			</span>
+			<form action="${logoutUrl}" method="post" id="logoutForm">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
+			<script>
+				function formSubmit() {
+					document.getElementById("logoutForm").submit();
+				}
+			</script>
+		</div>
+	</div>
+
+
 
 	<section ng-controller="ClientController">
 
 
-		<div class="container-fluid main-container">
-			<div class="col-md-4 sidebar">
-				<img src="<c:url value="/resources/images/mock.png" />" style="cursor: pointer">
+		<div class="main-container">
+
+			<div class="col-wrapper col-box">
+				<div>
+					<div class="itemrow">
+						<div class="col col-6of6">
+							<h1 ng-bind-html="productData.title" class="productitle" />
+						</div>
+					</div>
+
+					<div class="itemrow">
+						<div class="col col-3of6 content-image-left">
+							<img src="<c:url value="/resources/images/cafitesse.jpg" />" style="cursor: pointer">
+						</div>
+						<div id="ctl00_cphContent_ctl03_pnlContentText" class="col col-3of6">
+
+							<h2>Pilão CAFITESSE</h2>
+							<div class="content-block">
+								<div>
+									<ul>
+										<li>café encorpado com sabor intenso;</li>
+										<li>forte e equilibrado;</li>
+										<li>100% acondicionado em embalagem BAG IN BOX, hermeticamente fechado;</li>
+										<li>segue as normas ISO 9001 e HACCP*;</li>
+										<li>2 litros de café concentrado rendem de 40 a 60 litros de bebida pronta para o consumo</li>
+									</ul>
+									<p>
+										* <em>HACCP: Hazard Analysis and Critical Control Points.</em>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="itemrow">
+						<div class="col col-6of6">
+							<label class="doitonline">Faça o seu pedido Online!</label>
+						</div>
+					</div>
+
+					<div class="itemrow">
+						<div class="col col-6of6 form-group">
+							<table class="table table-bordered">
+								<thead>
+									<th>Preço Unitário</th>
+									<th>Quantidade</th>
+									<th>Sub-Total</th>
+								</thead>
+								<tbody>
+									<tr>
+										<td>R{{productData.unitprice | currency}}</td>
+										<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.quantity">
+										</td>
+										<td>R{{request.totalproductprice | currency}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="itemrow">
+
+						<div class="col col-4of6">
+
+							<table>
+								<thead>
+									<th colspan="2"><label class="control-label" style="font-size:20px">Endereço de Entrega</label></th>
+								</thead>
+								<tbody>
+									<tr>
+										<td style="width: 280px;">Cliente ABC LTDA
+											<p>Cliente ABC
+											<p>134.356.333/0001-12
+										</td>
+										<td>Av. Paulista, 122, 12 Andar
+											<p>Bairro Jardins
+											<p>São Paulo,SP, 01233-333
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="col col-2of6 form-group">
+							<fieldset>
+								<label class="control-label">Tipo de Entrega: </label>
+								<div class="radio">
+									<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="express" checked ng-model="request.leadtype">
+										Expressa ({{clientData.expressLeadTime}} dias úteis) -- R{{clientData.expressPrice | currency}}
+									</label>
+								</div>
+								<div class="radio">
+									<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="normal" ng-model="request.leadtype"> Normal
+										({{clientData.normalLeadTime}} dias úteis) -- R{{clientData.normalPrice| currency}}
+									</label>
+								</div>
+							</fieldset>
+
+							<fieldset class="totalsummary">
+								<label class="control-label">Valor Total:</label> <label class="control-label">R{{getTotalPrice()| currency}}</label>
+							</fieldset>
+							<button class="btn btn-primary" ng-click="submit()">
+								Finalizar Pedido</input>
+						</div>
+
+					</div>
+
+				</div>
 			</div>
-
-			<form class="col-md-6 content">
-				<div class="productdescription">
-					<label class="productname" ng-bind-html="productData.description" />
-				</div>
-
-
-				<div class="form-group">
-					<table class="table table-bordered">
-						<thead>
-							<th>Preço Unitário</th>
-							<th>Quantidade</th>
-							<th>Sub-Total</th>
-						</thead>
-						<tbody>
-							<tr>
-								<td>R{{productData.unitprice | currency}}</td>
-								<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.quantity">
-								</td>
-								<td>R{{request.totalproductprice | currency}}</td>
-							</tr>
-						</tbody>
-					</table>
-
-					<fieldset>
-						<label class="control-label"> Tipo de Entrega: </label>
-						<div class="radio">
-							<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="express" checked ng-model="request.leadtype">
-								Expressa ({{clientData.expressLeadTime}} dias úteis) -- R{{clientData.expressPrice | currency}}
-							</label>
-						</div>
-						<div class="radio">
-							<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="normal" ng-model="request.leadtype"> Normal
-								({{clientData.normalLeadTime}} dias úteis) -- R{{clientData.normalPrice| currency}}
-							</label>
-						</div>
-					</fieldset>
-
-					<fieldset class="totalsummary">
-						<label class="control-label">Valor Total:</label> <label class="control-label">R{{getTotalPrice()| currency}}</label>
-					</fieldset>
-
-
-				</div>
-
-
-
-				<button class="btn btn-primary" ng-click="submit()">
-					Finalizar Pedido</input>
-			</form>
 		</div>
+
+		<!-- 			<div class="col-md-4 sidebar"> -->
+		<%-- 				<img src="<c:url value="/resources/images/mock.png" />" style="cursor: pointer"> --%>
+		<!-- 			</div> -->
+
+		<!-- 			<form class="col-md-6 content"> -->
+		<!-- 				<div class="productdescription"> -->
+		<!-- 					<label class="productname" ng-bind-html="productData.description" /> -->
+		<!-- 				</div> -->
+
+
+		<!-- 				<div class="form-group"> -->
+		<!-- 					<table class="table table-bordered"> -->
+		<!-- 						<thead> -->
+		<!-- 							<th>Preço Unitário</th> -->
+		<!-- 							<th>Quantidade</th> -->
+		<!-- 							<th>Sub-Total</th> -->
+		<!-- 						</thead> -->
+		<!-- 						<tbody> -->
+		<!-- 							<tr> -->
+		<!-- 								<td>R{{productData.unitprice | currency}}</td> -->
+		<!-- 								<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.quantity"> -->
+		<!-- 								</td> -->
+		<!-- 								<td>R{{request.totalproductprice | currency}}</td> -->
+		<!-- 							</tr> -->
+		<!-- 						</tbody> -->
+		<!-- 					</table> -->
+
+		<!-- 					<fieldset> -->
+		<!-- 						<label class="control-label"> Tipo de Entrega: </label> -->
+		<!-- 						<div class="radio"> -->
+		<!-- 							<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="express" checked ng-model="request.leadtype"> -->
+		<!-- 								Expressa ({{clientData.expressLeadTime}} dias úteis) -- R{{clientData.expressPrice | currency}} -->
+		<!-- 							</label> -->
+		<!-- 						</div> -->
+		<!-- 						<div class="radio"> -->
+		<!-- 							<label> <input type="radio" name="request.leadtype" id="optionsRadios1" value="normal" ng-model="request.leadtype"> Normal -->
+		<!-- 								({{clientData.normalLeadTime}} dias úteis) -- R{{clientData.normalPrice| currency}} -->
+		<!-- 							</label> -->
+		<!-- 						</div> -->
+		<!-- 					</fieldset> -->
+
+		<!-- 					<fieldset class="totalsummary"> -->
+		<!-- 						<label class="control-label">Valor Total:</label> <label class="control-label">R{{getTotalPrice()| currency}}</label> -->
+		<!-- 					</fieldset> -->
+
+
+		<!-- 				</div> -->
+
+
+
+		<!-- 				<button class="btn btn-primary" ng-click="submit()"> -->
+		<!-- 					Finalizar Pedido</input> -->
+		<!-- 			</form> -->
+		<!-- 		</div> -->
 
 
 

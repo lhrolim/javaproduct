@@ -56,6 +56,31 @@ public class ClientController {
 		return model;
 	}
 
+	@RequestMapping(value = { "/client2**" }, method = RequestMethod.GET)
+	public ModelAndView getData2() throws JsonProcessingException {
+		SecurityContext ctx = SecurityContextHolder.getContext();
+		Authentication auth = ctx.getAuthentication();
+		ModelAndView model = new ModelAndView();
+		model.setViewName("client2");
+
+		User user = userDAO.Find(auth.getName());
+
+		// Invoke AMLABS method to get other data
+		AmlabsUserData amlabsData = getAmlabsUserData();
+		user.setAmlabsData(amlabsData);
+
+		ClientData clientData = new ClientData();
+
+		clientData.setUser(user);
+		// clientData.setProductImg();
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonData = mapper.writeValueAsString(clientData);
+		model.addObject("clientdata", jsonData);
+
+		return model;
+	}
+
 	@RequestMapping(value = "/submitclient", method = RequestMethod.POST, headers = { "Content-type=application/json" })
 	@ResponseBody
 	public String submit(@RequestBody ClientRequestData data) throws JsonProcessingException, InterruptedException {

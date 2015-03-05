@@ -24,6 +24,10 @@ admin.controller('AdminController', [ '$scope','paginationService','alertService
 		});
 	}
 	
+	$scope.createUser = function(){
+		 $('#usermodal').modal('show');
+	}
+	
 	
 
 	  this.callServer = function callServer(tableState) {

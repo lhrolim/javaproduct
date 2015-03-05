@@ -46,6 +46,16 @@
 		<span> <img src="<c:url value="/resources/images/pilao-professional-logo.png" />"> <span class="logout"><i class="fa fa-user"></i>
 				${pageContext.request.userPrincipal.name} | <i class="fa fa-sign-out"></i><a href="javascript:formSubmit()"> Logout</a> </span>
 		</span>
+
+		<form action="${logoutUrl}" method="post" id="logoutForm">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		</form>
+		<script>
+			function formSubmit() {
+				document.getElementById("logoutForm").submit();
+			}
+		</script>
+
 	</section>
 
 	<section ng-controller="AdminController">
@@ -58,13 +68,14 @@
 					<th st-sort="login">Usuário</th>
 					<th st-sort="login">Nome</th>
 					<th st-sort="login">Email</th>
-					<th>
+					<th></th>
 				</tr>
 
 				<tr>
 					<th><input st-search="'login'" /></th>
 					<th><input st-search="'login'" /></th>
 					<th><input st-search="'login'" /></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody ng-show="!isLoading">
@@ -72,11 +83,15 @@
 					<td>{{row.login}}</td>
 					<td>{{row.login}}</td>
 					<td>{{row.login}}</td>
-					<td>
-					<button type="button" class="btn btn-sm btn-danger" ng-click="deleteUser(row)">
-						<i class="fa fa-remove"> </i>
-					</button>
+					<td colspan="1">
+						<button type="button" class="btn btn-sm btn-primary" ng-click="editUser(row)">
+							<i class="fa fa-edit"> </i>
+						</button>
+						<button type="button" class="btn btn-sm btn-danger" ng-click="deleteUser(row)">
+							<i class="fa fa-remove"> </i>
+						</button>
 					</td>
+
 				</tr>
 			</tbody>
 			<tbody ng-show="isLoading">
@@ -91,18 +106,55 @@
 			</tfoot>
 		</table>
 
-		<button class="createnew btn btn-primary">Criar Usuário</button>
-
-
-		<form action="${logoutUrl}" method="post" id="logoutForm">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		</form>
-		<script>
-			function formSubmit() {
-				document.getElementById("logoutForm").submit();
-			}
-		</script>
-
+		<button class="createnew btn btn-primary" ng-click="createUser()">Criar Usuário</button>
 	</section>
+
+	<section id="modal">
+		<div class="modal fade" id="usermodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" role="form">
+							
+							<div class="form-group">
+								<label class="control-label col-sm-4" for="email">Usuário:</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="email" ng-model="newuser.login">
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label col-sm-4" for="email">Senha:</label>
+								<div class="col-sm-6">
+									<input type="password" class="form-control" ng-model="newuser.password">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-4" for="email">Confirme a Senha:</label>
+								<div class="col-sm-6">
+									<input type="password" class="form-control" ng-model="newuser.passwordconfirm">
+								</div>
+							</div>
+							
+							
+						</form>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 </body>
 </html>

@@ -18,7 +18,8 @@ admin.controller('ClientController', [ '$scope','$http',
 					$scope.productData = {
 						description : "Descrição mocada: O Melhor Café para sua empresa...",
 						unitprice : "10.0",
-						productid: "85"
+						productid: "85",
+						title: "Pilão CAFITESSE"
 					}
 				}
 
