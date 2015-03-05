@@ -112,7 +112,7 @@
 						</div>
 					</fieldset>
 
-					<fieldset>
+					<fieldset class="totalsummary">
 						<label class="control-label">Valor Total:</label> <label class="control-label">R{{getTotalPrice()| currency}}</label>
 					</fieldset>
 
