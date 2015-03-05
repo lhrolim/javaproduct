@@ -5,13 +5,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.amlabs.pilaoec.web.model.AmlabsUserData;
 import br.com.amlabs.pilaoec.web.model.ClientData;
+import br.com.amlabs.pilaoec.web.model.ClientRequestData;
 import br.com.amlabs.pilaoec.web.model.User;
 import br.com.amlabs.pilaoec.web.model.UserDAO;
 import br.com.amlabs.pilaoec.web.model.integration.IntegrationData;
@@ -51,6 +54,15 @@ public class ClientController {
 		model.addObject("clientdata", jsonData);
 
 		return model;
+	}
+
+	@RequestMapping(value = "/submitclient", method = RequestMethod.POST, headers = { "Content-type=application/json" })
+	@ResponseBody
+	public String submit(@RequestBody ClientRequestData data) throws JsonProcessingException, InterruptedException {
+		if (integrationData.IsSaveMocked()) {
+			Thread.sleep(1000);
+		}
+		return "";
 	}
 
 	private AmlabsUserData getAmlabsUserData() {

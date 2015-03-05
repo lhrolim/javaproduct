@@ -30,6 +30,7 @@ module.exports = function(grunt) {
   		 jquery: {
              files: {
                  'jquery.js': 'jquery/dist/jquery.js',
+                 'spin.js': 'spin.js/spin.js'
              }
          },
          

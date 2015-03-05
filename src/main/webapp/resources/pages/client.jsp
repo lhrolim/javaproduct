@@ -4,6 +4,7 @@
 <head>
 
 
+
 <link href="<c:url value="/resources/vendorcss/bootstrap.min.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/vendorcss/bootstrap-theme.min.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/vendorcss/fontawesome.min.css" />" rel="stylesheet">
@@ -17,11 +18,15 @@
 
 
 <script src="<c:url value="/resources/vendorscripts/jquery.js" />"></script>
+<script src="<c:url value="/resources/vendorscripts/spin.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angular.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angular-sanitize.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angularsmarttable.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/bootstrap.js" />"></script>
+
+
 <script src="<c:url value="/resources/scripts/client.js" />"></script>
+<script src="<c:url value="/resources/scripts/ajax_interceptor.js" />"></script>
 <script src="<c:url value="/resources/scripts/paginationService.js" />"></script>
 
 
@@ -33,13 +38,22 @@
 
 <html ng-app="pilaocommerce">
 <body>
+	
 
 	<input type="hidden" id="clientdata" value='${clientdata}' />
+	<input type="hidden" id="serverpath" value="<c:url value="/" />">
+
+
+<%-- 	<input type="hidden" id="serverpath" value="<c:url value="/">" /> --%>
 
 
 	<c:url value="/logout" var="logoutUrl" />
 	<section class="header">
-		<span> <img src="<c:url value="/resources/images/pilao-professional-logo.png" />"> <span class="logout"><i class="fa fa-user"></i>
+		<span>
+		
+		<img src="<c:url value="/resources/images/ajax-loader.gif" />" id="loading-indicator" style="display:none">
+		 
+		<img src="<c:url value="/resources/images/pilao-professional-logo.png" />"> <span class="logout"><i class="fa fa-user"></i>
 				${pageContext.request.userPrincipal.name} | <i class="fa fa-sign-out"></i><a href="javascript:formSubmit()"> Logout</a> </span>
 		</span>
 		<form action="${logoutUrl}" method="post" id="logoutForm">
@@ -106,7 +120,7 @@
 
 
 
-				<button class="btn btn-primary" ng-click="submit">
+				<button class="btn btn-primary" ng-click="submit()">
 					Finalizar Pedido</input>
 			</form>
 		</div>

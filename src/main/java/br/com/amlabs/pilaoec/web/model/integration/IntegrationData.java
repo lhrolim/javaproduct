@@ -30,6 +30,10 @@ public class IntegrationData {
 		this.saveURL = saveURL;
 	}
 
+	public Boolean IsSaveMocked() {
+		return getSaveURL() == null;
+	}
+
 	@PostConstruct
 	public void InitProperties() {
 

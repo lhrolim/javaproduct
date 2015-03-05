@@ -1,9 +1,14 @@
+
+
 var admin = angular.module('pilaocommerce', [ 'smart-table', 'ngSanitize' ]);
 
-admin.controller('ClientController', [ '$scope', 'paginationService',
-		function($scope, paginationService) {
+admin.controller('ClientController', [ '$scope','$http', 'paginationService',
+		function($scope,$http, paginationService) {
 
+	
+	
 			function init() {
+				
 				var clientDataJS = $('#clientdata').val();
 				var clientData = JSON.parse(clientDataJS);
 				$scope.productData = clientData.productData;
@@ -12,7 +17,8 @@ admin.controller('ClientController', [ '$scope', 'paginationService',
 				if (!$scope.productData) {
 					$scope.productData = {
 						description : "Descrição mocada: O Melhor Café para sua empresa...",
-						unitprice : "10.0"
+						unitprice : "10.0",
+						productid: "85"
 					}
 				}
 
@@ -20,7 +26,9 @@ admin.controller('ClientController', [ '$scope', 'paginationService',
 				
 				$scope.request = {
 					quantity : clientData.user.minimumrequest,
-					leadtype : "express"
+					leadtype : "express",
+					productid: $scope.productData.productid,
+					amlabsClientId : $scope.clientData.amlabs_id
 				};
 				
 				var totalprice = $scope.productData.unitprice * $scope.request.quantity;
@@ -51,7 +59,11 @@ admin.controller('ClientController', [ '$scope', 'paginationService',
 			}
 			
 			$scope.submit = function(){
-				
+				var serverPath = $('#serverpath').val();
+				$scope.request.totalValue = $scope.getTotalPrice();
+				$http.post(serverPath + "submitclient",$scope.request).success(function (data) {
+					alert("Pedido finalizado com sucesso");
+				});
 			}
 
 		} ]);
