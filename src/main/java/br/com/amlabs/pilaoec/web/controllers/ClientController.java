@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.security.core.Authentication;
@@ -20,12 +22,15 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.amlabs.pilaoec.web.model.ClientData;
-import br.com.amlabs.pilaoec.web.model.ClientRequestData;
 import br.com.amlabs.pilaoec.web.model.User;
 import br.com.amlabs.pilaoec.web.model.UserDAO;
+import br.com.amlabs.pilaoec.web.model.integration.CreateSalesOrderOperationInterceptor;
 import br.com.amlabs.pilaoec.web.model.integration.IntegrationData;
-import br.com.amlabs.pilaoec.web.model.integration.OperationInterceptor;
 import br.com.amlabs.pilaoec.web.model.integration.request.AmlabsClientRequestData;
+import br.com.amlabs.pilaoec.web.model.integration.request.CredentialsData;
+import br.com.amlabs.pilaoec.web.model.integration.request.OrderRequestData;
+import br.com.amlabs.pilaoec.web.model.integration.request.SalesOrderData;
+import br.com.amlabs.pilaoec.web.model.integration.response.GetCustomerOperationInterceptor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,6 +44,18 @@ public class ClientController {
 	@Autowired
 	private IntegrationData integrationData;
 
+	private CredentialsData credentialsData;
+
+	public ClientController() {
+		super();
+
+	}
+
+	@PostConstruct
+	public void init() {
+		credentialsData = new CredentialsData(integrationData.getUsername(), integrationData.getPassword());
+	}
+
 	@RequestMapping(value = { "/client**" }, method = RequestMethod.GET)
 	public ModelAndView getData() throws Exception {
 		SecurityContext ctx = SecurityContextHolder.getContext();
@@ -50,7 +67,7 @@ public class ClientController {
 
 		// Invoke AMLABS method to get other data
 		String amlabsData = getAmlabsUserData(user.getAmlabs_id());
-//		user.setAmlabsData(amlabsData);
+		// user.setAmlabsData(amlabsData);
 
 		ClientData clientData = new ClientData();
 
@@ -67,25 +84,37 @@ public class ClientController {
 
 	@RequestMapping(value = "/submitclient", method = RequestMethod.POST, headers = { "Content-type=application/json" })
 	@ResponseBody
-	public String submit(@RequestBody ClientRequestData data) throws JsonProcessingException, InterruptedException {
+	public String submit(@RequestBody SalesOrderData data) throws JsonProcessingException, InterruptedException {
 		if (integrationData.IsSaveMocked()) {
 			Thread.sleep(100);
+			return "";
 		}
+
+		RestTemplate restTemplate = new RestTemplate();
+		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
+		interceptors.add(new CreateSalesOrderOperationInterceptor());
+		String saveURL = integrationData.getSaveURL();
+
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonData = mapper.writeValueAsString(new OrderRequestData(credentialsData, data));
+		String result = restTemplate.postForObject(saveURL, jsonData, String.class);
 		return "";
+
 	}
 
 	private String getAmlabsUserData(String customerId) throws KeyManagementException, NoSuchAlgorithmException, IOException {
 		RestTemplate restTemplate = new RestTemplate();
 		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
-		interceptors.add(new OperationInterceptor());
+		interceptors.add(new GetCustomerOperationInterceptor());
 		restTemplate.setInterceptors(interceptors);
 		String retrieveURL = integrationData.getRetrieveURL();
 		if (retrieveURL != null) {
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonData = mapper.writeValueAsString(AmlabsClientRequestData.forId(customerId));
 			String amlabsDataJSON = restTemplate.postForObject(retrieveURL, jsonData, String.class);
-//			GetCustomerData customerData = mapper.readValue(amlabsDataJSON, GetCustomerData.class);
-//			return customerData.getCustomer();
+			// GetCustomerData customerData = mapper.readValue(amlabsDataJSON,
+			// GetCustomerData.class);
+			// return customerData.getCustomer();
 			return amlabsDataJSON;
 		}
 		return null;

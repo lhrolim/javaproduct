@@ -13,6 +13,8 @@ public class IntegrationData {
 
 	private String retrieveURL;
 	private String saveURL;
+	private String username;
+	private String password;
 
 	public String getRetrieveURL() {
 		return retrieveURL;
@@ -34,6 +36,22 @@ public class IntegrationData {
 		return getSaveURL() == null;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@PostConstruct
 	public void InitProperties() {
 
@@ -46,6 +64,12 @@ public class IntegrationData {
 			}
 			if (props.containsKey("save.url")) {
 				saveURL = props.getProperty("save.url");
+			}
+			if (props.containsKey("credentials.username")) {
+				username = props.getProperty("credentials.username");
+			}
+			if (props.containsKey("credentials.password")) {
+				password = props.getProperty("credentials.password");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -29,20 +29,20 @@ admin.controller('ClientController', [ '$scope','$http',
 				 
 				
 				$scope.request = {
-					quantity : $scope.clientData.minimumrequest,
+					supplyamount : $scope.clientData.minimumrequest,
 					leadtype : "express",
 					productid: $scope.productData.productid,
-					amlabsClientId : $scope.clientData.amlabs_id
+					customerid : $scope.clientData.amlabs_id
 				};
 				
-				var totalprice = $scope.productData.unitprice * $scope.request.quantity;
+				var totalprice = $scope.productData.unitprice * $scope.request.supplyamount;
 				
 				$scope.request.totalproductprice = totalprice;
 				
 				$scope.active = $scope.amlabsdata.STATUS == "Ativo";
 				
-				$scope.$watch('request.quantity',function(newvalue,oldvalue){
-					$scope.request.totalproductprice =$scope.productData.unitprice * $scope.request.quantity;
+				$scope.$watch('request.supplyamount',function(newvalue,oldvalue){
+					$scope.request.totalproductprice =$scope.productData.unitprice * $scope.request.supplyamount;
 				});
 				
 				$scope.$watch('request.leadtype',function(newvalue,oldvalue){
@@ -63,13 +63,13 @@ admin.controller('ClientController', [ '$scope','$http',
 			$scope.newrequest = function(value) {
 				var clientData = $scope.clientData;
 				$scope.request = {
-					quantity : $scope.clientData.minimumrequest,
+					supplyamount: $scope.clientData.minimumrequest,
 					leadtype : "express",
 					productid: $scope.productData.productid,
-					amlabsClientId : $scope.clientData.amlabs_id,
+					customerid : $scope.clientData.amlabs_id,
 					leadprice:0
 				};
-				$scope.request.totalproductprice =$scope.productData.unitprice * $scope.request.quantity;
+				$scope.request.shippingvalue =$scope.productData.unitprice * $scope.request.supplyamount;
 				var leadPrice = $scope.request.leadtype == "express" ? $scope.clientData.expressPrice : $scope.clientData.normalPrice;
 				$scope.request.leadprice = leadPrice;
 				$scope.submitting = false;
@@ -79,10 +79,13 @@ admin.controller('ClientController', [ '$scope','$http',
 			$scope.submit = function(){
 				$scope.submitting = true;
 				var serverPath = $('#serverpath').val();
-				$scope.request.totalValue = $scope.getTotalPrice();
+				$scope.request.shippingvalue = $scope.getTotalPrice();
+				$scope.request.comments = $scope.clientData.remarks;
 				$http.post(serverPath + "submitclient",$scope.request).success(function (data) {
 					$scope.submitting = false;
 					$scope.completed= true;
+				}).error(function (data){
+					$scope.submitting = false;
 				});
 			}
 

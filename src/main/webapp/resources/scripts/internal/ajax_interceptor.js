@@ -44,6 +44,14 @@ app.config(['$httpProvider', function ($httpProvider) {
                 $('#loading-indicator').hide();
             }
         };
+        
+        var endederror = function (response) {
+        	activeRequests--;
+            if (activeRequests == 0) {
+            	spinner.stop();
+                $('#loading-indicator').hide();
+            }
+        };
 
         return {
             // optional method

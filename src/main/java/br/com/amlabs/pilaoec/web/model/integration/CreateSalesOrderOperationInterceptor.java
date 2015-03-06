@@ -8,7 +8,7 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
-public class OperationInterceptor implements ClientHttpRequestInterceptor {
+public class CreateSalesOrderOperationInterceptor implements ClientHttpRequestInterceptor {
 
     @Override
     public ClientHttpResponse intercept(
@@ -16,7 +16,7 @@ public class OperationInterceptor implements ClientHttpRequestInterceptor {
             throws IOException {
 
         HttpHeaders headers = request.getHeaders();
-		headers.add("operation", "getcustomer");
+		headers.add("operation", "createsalesorder");
         return execution.execute(request, body);
     }
 }
