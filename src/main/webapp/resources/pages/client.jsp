@@ -27,7 +27,6 @@
 
 <script src="<c:url value="/resources/scripts/client.js" />" charset="utf-8"></script>
 <script src="<c:url value="/resources/scripts/ajax_interceptor.js" />"></script>
-<script src="<c:url value="/resources/scripts/paginationService.js" />"></script>
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -42,6 +41,7 @@
 
 	<div class="spinner" data-class="spinner" id="mainspinner"></div>
 	<input type="hidden" id="clientdata" value='${clientdata}' />
+	<input type="hidden" id="amlabsdata" value='${amlabsdata}' />
 	<input type="hidden" id="serverpath" value="<c:url value="/" />">
 
 	<%-- 	<input type="hidden" id="serverpath" value="<c:url value="/">" /> --%>
@@ -116,8 +116,16 @@
 							</div>
 						</div>
 					</div>
+					
+					<div ng-show="!active">
+						<div class="itemrow">
+							<div class="col col-6of6">
+								<div class="alert alert-danger" role="alert"><icon class="fa fa-check"></icon>Usuário Inativo. Favor entrar em contato com nossa central de vendas no telefone (xx) xxxx-xxxx</div>
+							</div>
+						</div>
+					</div>
 
-					<div ng-show="!completed">
+					<div ng-show="!completed && active">
 						<div class="itemrow">
 							<div class="col col-6of6">
 								<label class="doitonline">Faça o seu pedido Online!</label>
@@ -154,8 +162,8 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td style="width: 280px;"><br>Cliente ABC LTDA <br>Cliente ABC <br>134.356.333/0001-12</td>
-											<td><br>Av. Paulista, 122, 12 Andar <br>Bairro Jardins <br>São Paulo,SP, 01233-333</td>
+											<td style="width: 280px;"><br>{{amlabsdata.tradingname}}<br>{{amlabsdata.name}}<br>{{amlabsdata.cnpj}}</td>
+											<td><br>{{amlabsdata.address}}, {{amlabsdata.nro}} , {{amlabsdata.complement}} <br>{{amlabsdata.neighboorhood}}<br>{{amlabsdata.city}},{{amlabsdata.state}}, {{amlabsdata.zipcode}}</td>
 										</tr>
 									</tbody>
 								</table>

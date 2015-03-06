@@ -2,6 +2,7 @@ package br.com.amlabs.pilaoec.web.model;
 
 import br.com.amlabs.pilaoec.util.jdbc.IBaseEntity;
 import br.com.amlabs.pilaoec.util.jdbc.JDBCEntity;
+import br.com.amlabs.pilaoec.web.model.integration.response.AmlabsCustomerData;
 
 @JDBCEntity(table = "sec_user")
 public class User implements IBaseEntity {
@@ -17,7 +18,7 @@ public class User implements IBaseEntity {
 	private Integer normalLeadTime;
 	private Integer expressLeadTime;
 	private Integer minimumrequest;
-	private AmlabsUserData amlabsData;
+	private AmlabsCustomerData amlabsData;
 
 	public User() {
 		// TODO Auto-generated method stub
@@ -117,11 +118,11 @@ public class User implements IBaseEntity {
 		this.admin = admin;
 	}
 
-	public void setAmlabsData(AmlabsUserData amlabsData) {
+	public void setAmlabsData(AmlabsCustomerData amlabsData) {
 		this.amlabsData = amlabsData;
 	}
 
-	public AmlabsUserData getAmlabsData() {
+	public AmlabsCustomerData getAmlabsData() {
 		return amlabsData;
 	}
 

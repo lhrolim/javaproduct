@@ -12,13 +12,15 @@ admin.controller('ClientController', [ '$scope','$http',
 				var clientDataJS = $('#clientdata').val();
 				var clientData = JSON.parse(clientDataJS);
 				
+				var amlabsData = JSON.parse($('#amlabsdata').val());
+				
 				$scope.productData = clientData.productData;
 				$scope.clientData = clientData.user;
-				$scope.amlabsData = clientData.user.amlabsData;
+				$scope.amlabsdata = amlabsData.customer;
 
 				if (!$scope.productData) {
 					$scope.productData = {
-						unitprice : "10.0",
+						unitprice : $scope.amlabsdata.cofeebagprice,
 						productid: "85",
 						title: "Pilão CAFITESSE"
 					}
@@ -36,6 +38,8 @@ admin.controller('ClientController', [ '$scope','$http',
 				var totalprice = $scope.productData.unitprice * $scope.request.quantity;
 				
 				$scope.request.totalproductprice = totalprice;
+				
+				$scope.active = $scope.amlabsdata.STATUS == "Ativo";
 				
 				$scope.$watch('request.quantity',function(newvalue,oldvalue){
 					$scope.request.totalproductprice =$scope.productData.unitprice * $scope.request.quantity;
