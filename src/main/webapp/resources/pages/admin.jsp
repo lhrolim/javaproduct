@@ -58,7 +58,7 @@
 			</a> <span class="headertext">Dúvidas? Entre em contato com a nossa central de vendas! (11)1234-1234</span> <span> <img
 				src="<c:url value="/resources/images/ajax-loader.gif" />" id="loading-indicator" style="display: none"> <img src=""> <span
 				class="logout"><i class="fa fa-user"></i> ${pageContext.request.userPrincipal.name} | <i class="fa fa-sign-out"></i><a
-					href="javascript:formSubmit()"> Logout</a> </span>
+					href="javascript:formSubmit()"> Sair</a> </span>
 			</span>
 			<form action="${logoutUrl}" method="post" id="logoutForm">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

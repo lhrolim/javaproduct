@@ -96,7 +96,7 @@ admin.controller('AdminController', [ '$scope','paginationService','alertService
 				
 			}else{
 				$scope.error=true;
-				$scope.errorMessage = data.error[0];
+				$scope.errorMessage = data.message.error[0];
 			}
 		}).error(function (data){
 			$scope.submitting = false;

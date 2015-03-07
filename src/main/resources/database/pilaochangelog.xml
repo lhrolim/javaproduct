@@ -31,6 +31,10 @@
 		
 
 	</changeSet>
+	
+	<changeSet id="2" author="rolim">
+		<addUniqueConstraint columnNames="amlabs_id" tableName="sec_user" constraintName="uq_amlabsid"/>
+	</changeSet>
 
 	
 
