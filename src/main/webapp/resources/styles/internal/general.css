@@ -15,9 +15,9 @@ body {
 	margin-bottom: 20px
 }
 
-input.ng-touched.ng-invalid {
-    border-color: red
-}
+/* input.ng-touched.ng-invalid { */
+/*     border-color: red */
+/* } */
 
 .header .logout {
 	font-size: 16px;

@@ -24,6 +24,12 @@ admin.controller('AdminController', [ '$scope','paginationService','alertService
 		});
 	}
 	
+	$scope.closeModal = function(){
+		$scope.user = null;
+		$scope.errorMessage = null;
+		$('#usermodal').modal('hide');
+	}
+	
 	$scope.createUser = function(){
 		 $('#usermodal').modal('show');
 		 $scope.modaltitle = "Criar Usuário";
@@ -60,12 +66,25 @@ admin.controller('AdminController', [ '$scope','paginationService','alertService
 		}
 	}
 	
+	$scope.normalize=function(input){
+		return input.replace('R$','');
+	}
+	
 	$scope.saveUser = function(){
 		var serverPath = $('#serverpath').val();
+		if ($scope.user.newpassword != $scope.user.passwordconfirm){
+			$scope.errorMessage = "Senhas não conferem";
+			return;
+		}
+		
 		$scope.submitting = true;
-		$scope.user.password = $scope.user.newpassword;
+//		$scope.user.normalPrice = $scope.normalize($scope.user.normalPrice);
+//		$scope.user.expressPrice = $scope.normalize($scope.user.expressPrice);
+		
+		
+		
 		var editing = $scope.user.id != null;
-		$http.post(serverPath + "/admin/save",$scope.user).success(function (data) {
+		$http.post(serverPath + "admin/save",$scope.user).success(function (data) {
 			$scope.submitting = false;
 			if (data.message.success){
 				$scope.updateUserArray(editing,data.user);
@@ -73,14 +92,16 @@ admin.controller('AdminController', [ '$scope','paginationService','alertService
 				$timeout(function(){
 					$scope.successMessage = null;
 				},3000)
-				$('#usermodal').modal('hide');
+				$scope.closeModal();
+				
 			}else{
 				$scope.error=true;
-				$scope.errormessage = data.error[0];
+				$scope.errorMessage = data.error[0];
 			}
 		}).error(function (data){
 			$scope.submitting = false;
 			$scope.error=true;
+			$scope.errorMessage = "Erro ao salvar usuário";
 		});
 	}
 	

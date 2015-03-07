@@ -14,7 +14,7 @@ admin.directive('format', ['$filter', function ($filter) {
                               
           elem.priceFormat({
             prefix: 'R$',
-            centsSeparator: ',',
+            centsSeparator: '.',
             thousandsSeparator: '.'
         });                
                          

@@ -89,7 +89,7 @@
 								<div class="col col-6of6">
 									<div class="alert alert-success" role="alert">
 										<icon class="fa fa-check"></icon>
-											{{successMessage}}
+										{{successMessage}}
 									</div>
 								</div>
 							</div>
@@ -144,13 +144,26 @@
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<button type="button" class="close" aria-label="Close" ng-click="closeModal()">
 												<span aria-hidden="true">&times;</span>
 											</button>
 											<h4 class="modal-title" id="myModalLabel">{{modaltitle}}</h4>
 										</div>
 										<div class="modal-body">
 											<form class="form-horizontal" role="form">
+
+												<div class="form-group" ng-show="errorMessage != null">
+
+													<div class="alert alert-danger" role="alert">
+														<icon class="fa fa-check"></icon>
+														{{errorMessage}}
+														<button type="button" class="close" ng-click="errorMessage = null">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+
+
+												</div>
 
 												<div class="form-group">
 													<label class="control-label col-sm-4" for="email">Usuário:</label>
@@ -183,14 +196,14 @@
 												<div class="form-group">
 													<label class="control-label col-sm-4" for="email">Preço Entrega Normal:</label>
 													<div class="col-sm-6">
-														<input type="text" class="form-control" ng-model="user.normalPrice" required format="number">
+														<input type="text" class="form-control" ng-model="user.normalPrice" required>
 													</div>
 												</div>
 
 												<div class="form-group">
 													<label class="control-label col-sm-4" for="email">Preço Entrega Expressa:</label>
 													<div class="col-sm-6">
-														<input type="text" class="form-control" ng-model="user.expressPrice" required format="number">
+														<input type="text" class="form-control" ng-model="user.expressPrice" required>
 													</div>
 												</div>
 
@@ -225,7 +238,7 @@
 
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+											<button type="button" class="btn btn-default" ng-click="closeModal()">Cancelar</button>
 											<button type="button" class="btn btn-primary" ng-click="saveUser()" ng-disabled="submitting">Salvar</button>
 										</div>
 									</div>
