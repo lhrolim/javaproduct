@@ -20,7 +20,7 @@ admin.controller('ClientController', [ '$scope','$http',
 
 				if (!$scope.productData) {
 					$scope.productData = {
-						unitprice : $scope.amlabsdata.cofeebagprice,
+						unitprice : $scope.amlabsdata.coffeebagprice,
 						productid: "85",
 						title: "Pilão CAFITESSE"
 					}
@@ -32,17 +32,17 @@ admin.controller('ClientController', [ '$scope','$http',
 					supplyamount : $scope.clientData.minimumrequest,
 					leadtype : "express",
 					productid: $scope.productData.productid,
-					customerid : $scope.clientData.amlabs_id
+					customerid : $scope.amlabsdata.CUSTOMERID,
 				};
 				
 				var totalprice = $scope.productData.unitprice * $scope.request.supplyamount;
 				
-				$scope.request.totalproductprice = totalprice;
+				$scope.request.shippingvalue = totalprice;
 				
-				$scope.active = $scope.amlabsdata.STATUS == "Ativo";
+				$scope.active = $scope.amlabsdata.status == "Ativo";
 				
 				$scope.$watch('request.supplyamount',function(newvalue,oldvalue){
-					$scope.request.totalproductprice =$scope.productData.unitprice * $scope.request.supplyamount;
+					$scope.request.shippingvalue =$scope.productData.unitprice * $scope.request.supplyamount;
 				});
 				
 				$scope.$watch('request.leadtype',function(newvalue,oldvalue){
@@ -57,7 +57,7 @@ admin.controller('ClientController', [ '$scope','$http',
 			$scope.getTotalPrice = function() {
 				var leadPrice = $scope.request.leadtype == "express" ? $scope.clientData.expressPrice : $scope.clientData.normalPrice; 
 				
-				return $scope.request.totalproductprice + $scope.request.leadprice;
+				return $scope.request.shippingvalue + $scope.request.leadprice;
 			}
 
 			$scope.newrequest = function(value) {
@@ -66,7 +66,7 @@ admin.controller('ClientController', [ '$scope','$http',
 					supplyamount: $scope.clientData.minimumrequest,
 					leadtype : "express",
 					productid: $scope.productData.productid,
-					customerid : $scope.clientData.amlabs_id,
+					customerid : $scope.amlabsdata.CUSTOMERID,
 					leadprice:0
 				};
 				$scope.request.shippingvalue =$scope.productData.unitprice * $scope.request.supplyamount;
@@ -74,18 +74,24 @@ admin.controller('ClientController', [ '$scope','$http',
 				$scope.request.leadprice = leadPrice;
 				$scope.submitting = false;
 				$scope.completed= false;
+				$scope.error=false;
 			}
 			
 			$scope.submit = function(){
 				$scope.submitting = true;
 				var serverPath = $('#serverpath').val();
-				$scope.request.shippingvalue = $scope.getTotalPrice();
 				$scope.request.comments = $scope.clientData.remarks;
 				$http.post(serverPath + "submitclient",$scope.request).success(function (data) {
 					$scope.submitting = false;
-					$scope.completed= true;
+					if (data.success){
+						$scope.completed= true;	
+					}else{
+						$scope.error=true;
+						$scope.errormessage = data.error[0];
+					}
 				}).error(function (data){
 					$scope.submitting = false;
+					$scope.error=true;
 				});
 			}
 

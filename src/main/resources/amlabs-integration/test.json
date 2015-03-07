@@ -1,1 +1,4 @@
-{"customer":{"STATE":"CE","NAME":"Precisao Escritorio de Contabilidade LTDA","ADDRESS":"Rua Principal","CUSTOMERNUM":"1","STATUS":"Ativo","NEIGHBORHOOD":"Centro","CUSTOMERID":5259,"COMPLEMENT":"sala 01","ZIPCODE":"12000-100","COFFEEBAGPRICE":52.59,"NRO":"500","TRADINGNAME":"Precisao Contabilidade","EMAIL":"hilton@amlabs.com.br","CITY":"Abaiara","CNPJ":"62.052.925/0001-33"}}
+{
+"successmessage":"Venda S1069 criada com sucesso",
+"success":["S1069"]
+}

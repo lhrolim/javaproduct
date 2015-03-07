@@ -1,6 +1,7 @@
 package br.com.amlabs.pilaoec.web.controllers;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,8 +33,8 @@ import br.com.amlabs.pilaoec.web.model.integration.request.CredentialsData;
 import br.com.amlabs.pilaoec.web.model.integration.request.OrderRequestData;
 import br.com.amlabs.pilaoec.web.model.integration.request.SalesOrderData;
 import br.com.amlabs.pilaoec.web.model.integration.response.GetCustomerOperationInterceptor;
+import br.com.amlabs.pilaoec.web.model.integration.response.ReturnMessage;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -84,26 +86,29 @@ public class ClientController {
 
 	@RequestMapping(value = "/submitclient", method = RequestMethod.POST, headers = { "Content-type=application/json" })
 	@ResponseBody
-	public String submit(@RequestBody SalesOrderData data) throws JsonProcessingException, InterruptedException {
+	public ReturnMessage submit(@RequestBody SalesOrderData data) throws InterruptedException, IOException {
 		if (integrationData.IsSaveMocked()) {
 			Thread.sleep(100);
-			return "";
+			return new ReturnMessage();
 		}
 
 		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
 		interceptors.add(new CreateSalesOrderOperationInterceptor());
+		restTemplate.setInterceptors(interceptors);
 		String saveURL = integrationData.getSaveURL();
 
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonData = mapper.writeValueAsString(new OrderRequestData(credentialsData, data));
 		String result = restTemplate.postForObject(saveURL, jsonData, String.class);
-		return "";
-
+		ReturnMessage resultMessage = mapper.readValue(result, ReturnMessage.class);
+		return resultMessage;
 	}
 
 	private String getAmlabsUserData(String customerId) throws KeyManagementException, NoSuchAlgorithmException, IOException {
 		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
 		interceptors.add(new GetCustomerOperationInterceptor());
 		restTemplate.setInterceptors(interceptors);

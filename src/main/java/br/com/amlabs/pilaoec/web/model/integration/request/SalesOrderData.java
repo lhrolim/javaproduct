@@ -2,16 +2,16 @@ package br.com.amlabs.pilaoec.web.model.integration.request;
 
 public class SalesOrderData {
 
-	private String customerid;
+	private Integer customerid;
 	private Double shippingvalue;
 	private Integer supplyamount;
 	private String comments;
 
-	public String getCustomerid() {
+	public Integer getCustomerid() {
 		return customerid;
 	}
 
-	public void setCustomerid(String customerid) {
+	public void setCustomerid(Integer customerid) {
 		this.customerid = customerid;
 	}
 

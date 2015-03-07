@@ -117,6 +117,15 @@
 						</div>
 					</div>
 					
+					<div ng-show="error">
+						<div class="itemrow">
+							<div class="col col-6of6">
+								<div class="alert alert-danger" role="alert"><icon class="fa fa-check"></icon>Erro ao gerar pedido {{errormessage}}</div>
+								<button class="btn btn-primary" ng-click="newrequest()">Novo Pedido</button>
+							</div>
+						</div>
+					</div>
+					
 					<div ng-show="!active">
 						<div class="itemrow">
 							<div class="col col-6of6">
@@ -125,7 +134,7 @@
 						</div>
 					</div>
 
-					<div ng-show="!completed && active">
+					<div ng-show="!completed && !error && active">
 						<div class="itemrow">
 							<div class="col col-6of6">
 								<label class="doitonline">Faça o seu pedido Online!</label>
@@ -145,7 +154,7 @@
 											<td>R{{productData.unitprice | currency}}</td>
 											<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.supplyamount">
 											</td>
-											<td>R{{request.totalproductprice | currency}}</td>
+											<td>R{{request.shippingvalue | currency}}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -163,7 +172,7 @@
 									<tbody>
 										<tr>
 											<td style="width: 280px;"><br>{{amlabsdata.tradingname}}<br>{{amlabsdata.name}}<br>{{amlabsdata.cnpj}}</td>
-											<td><br>{{amlabsdata.address}}, {{amlabsdata.nro}} , {{amlabsdata.complement}} <br>{{amlabsdata.neighboorhood}}<br>{{amlabsdata.city}},{{amlabsdata.state}}, {{amlabsdata.zipcode}}</td>
+											<td><br>{{amlabsdata.address}}, {{amlabsdata.nro}} , {{amlabsdata.complement}} <br>{{amlabsdata.neighborhood}}<br>{{amlabsdata.city}},{{amlabsdata.state}}, {{amlabsdata.zipcode}}</td>
 										</tr>
 									</tbody>
 								</table>
