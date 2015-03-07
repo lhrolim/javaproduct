@@ -15,6 +15,10 @@ body {
 	margin-bottom: 20px
 }
 
+input.ng-touched.ng-invalid {
+    border-color: red
+}
+
 .header .logout {
 	font-size: 16px;
 	font-family: arial;
@@ -33,9 +37,140 @@ body {
 	z-index: 9999;
 }
 
-.smallmodal {
-	/*     width: 350px; */
-	/*     top: 50%; */
-	/*     left: 50%; */
-	
+.productdescription {
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
+
+.productdescription label {
+	font-size: 20px;
+}
+
+.totalsummary {
+	font-size: 18px;
+}
+
+#loading-indicator {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+}
+
+.headertext {
+	color: #69362e;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.header {
+	position: relative;
+	background: #fff;
+	height: 126px;
+	margin-top: -15px;
+	padding: 0 10px;
+	z-index: 300;
+	width: 1040px;
+	margin: 0 auto;
+}
+
+.header .logo {
+	display: inline-block;
+	margin-top: 18px;
+	padding-right: 100px
+}
+
+.header-wrapper {
+	position: relative;
+	background: #fff;
+}
+
+.main-container {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+.productitle {
+	font: 38px/50px 'FrescoPro-Sans', sans-serif;
+	margin-bottom: 14px;
+	color: #ec6602;
+}
+
+h2 {
+	font: 24px/34px 'FrescoPro-Sans', sans-serif;
+	margin-bottom: 10px;
+	color: #82348b;
+}
+
+.col-box {
+	border-radius: 10px;
+	border: 1px solid #e1d7d5;
+	padding: 25px 17px 0;
+	background: #fff;
+}
+
+.col-wrapper, .footer-inner {
+	width: 1000px;
+	margin: 0 auto 40px;
+	padding: 0 18px;
+}
+
+.center-box {
+	border-radius: 10px;
+	border: 1px solid #e1d7d5;
+	padding: 25px 17px 0;
+	background: #fff;
+	padding: 0 18px;
+}
+
+.col-wrapper:before, .col-wrapper:after, .itemrow:before, .itemrow:after
+	{
+	content: "";
+	display: table;
+}
+
+.col-wrapper:after, .itemrow:after {
+	clear: both;
+}
+
+.col-wrapper:before, .col-wrapper:after, .itemrow:before, .itemrow:after
+	{
+	content: "";
+	display: table;
+}
+
+.itemrow {
+	margin-bottom: 30px;
+}
+
+.col {
+	float: left;
+	margin: 0 18px;
+	min-height: 1px;
+}
+
+ul {
+	margin: 1em 0;
+	padding: 0 0 0 40px;
+	list-style-image: url(../images/bullet.png);
+}
+
+.col-6of6 {
+	width: 926px;
+}
+
+.col-3of6 {
+	width: 430px;
+}
+
+.col-4of6 {
+	width: 580px;
+}
+
+.col-2of6 {
+	width: 280px;
+}
+
+.doitonline{
+	color: #A68BA9;
+}
+

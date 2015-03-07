@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -18,6 +19,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import br.com.amlabs.pilaoec.util.MySqlPaginationUtil;
 
@@ -30,6 +32,8 @@ public class UserDAO extends JdbcDaoSupport {
 	private static final String InsertUserQuery = "INSERT INTO sec_user (login,password,amlabs_id,remarks,normalprice,expressprice,normalleadtime,expressleadtime,minimumrequest,admin) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 	private static final String UpdateUserQuery = "update sec_user set password = ?,amlabs_id =?, remarks = ?,normalprice =? ,expressprice =? ,normalleadtime =? ,expressleadtime = ?,minimumrequest = ? where id = ? ";
+
+	private static final String UpdateUserNoPasswordQuery = "update sec_user set amlabs_id =?, remarks = ?,normalprice =? ,expressprice =? ,normalleadtime =? ,expressleadtime = ?,minimumrequest = ? where id = ? ";
 
 	String TABLE_NAME = "tableName";
 	String GENERATED_KEY = "generatedKey";
@@ -88,10 +92,11 @@ public class UserDAO extends JdbcDaoSupport {
 
 	@Transactional
 	public User SaveClient(final User user, final String password) {
+		JdbcTemplate jdbcTemplate = getJdbcTemplate();
 		if (user.getId() == null) {
 			KeyHolder keyHolder = new GeneratedKeyHolder();
 
-			getJdbcTemplate().update(new PreparedStatementCreator() {
+			jdbcTemplate.update(new PreparedStatementCreator() {
 
 				@Override
 				public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -113,8 +118,12 @@ public class UserDAO extends JdbcDaoSupport {
 			user.setId(id);
 		} else {
 
-			getJdbcTemplate().update(UpdateUserQuery, password, user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(),
-					user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
+			if (StringUtils.isEmpty(password)) {
+				jdbcTemplate.update(UpdateUserNoPasswordQuery, user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
+			} else {
+				jdbcTemplate.update(UpdateUserQuery, password, user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
+			}
+
 		}
 		return user;
 

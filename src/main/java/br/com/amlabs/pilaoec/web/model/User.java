@@ -10,6 +10,7 @@ public class User implements IBaseEntity {
 	private Integer Id;
 	private String login;
 	private Boolean admin;
+	private String newpassword;
 
 	private String amlabs_id;
 	private String remarks;
@@ -126,6 +127,14 @@ public class User implements IBaseEntity {
 		return amlabsData;
 	}
 
+	public String getNewpassword() {
+		return newpassword;
+	}
+
+	public void setNewpassword(String password) {
+		this.newpassword = password;
+	}
+
 	public static User createRandomMockClient() {
 		User user = new User();
 		user.admin = false;
@@ -138,5 +147,5 @@ public class User implements IBaseEntity {
 		user.setMinimumrequest(10);
 		return user;
 	}
-	
+
 }

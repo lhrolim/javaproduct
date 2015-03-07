@@ -2,8 +2,6 @@ package br.com.amlabs.pilaoec.web.controllers;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +26,9 @@ import br.com.amlabs.pilaoec.web.model.User;
 import br.com.amlabs.pilaoec.web.model.UserDAO;
 import br.com.amlabs.pilaoec.web.model.integration.CreateSalesOrderOperationInterceptor;
 import br.com.amlabs.pilaoec.web.model.integration.IntegrationData;
-import br.com.amlabs.pilaoec.web.model.integration.request.AmlabsClientRequestData;
 import br.com.amlabs.pilaoec.web.model.integration.request.CredentialsData;
 import br.com.amlabs.pilaoec.web.model.integration.request.OrderRequestData;
 import br.com.amlabs.pilaoec.web.model.integration.request.SalesOrderData;
-import br.com.amlabs.pilaoec.web.model.integration.response.GetCustomerOperationInterceptor;
 import br.com.amlabs.pilaoec.web.model.integration.response.ReturnMessage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,6 +41,9 @@ public class ClientController {
 
 	@Autowired
 	private IntegrationData integrationData;
+
+	@Autowired
+	private AmlabsRestManager amlabsRestManager;
 
 	private CredentialsData credentialsData;
 
@@ -68,7 +67,7 @@ public class ClientController {
 		User user = userDAO.Find(auth.getName());
 
 		// Invoke AMLABS method to get other data
-		String amlabsData = getAmlabsUserData(user.getAmlabs_id());
+		String amlabsData = amlabsRestManager.getAmlabsUserData(user.getAmlabs_id());
 		// user.setAmlabsData(amlabsData);
 
 		ClientData clientData = new ClientData();
@@ -106,24 +105,6 @@ public class ClientController {
 		return resultMessage;
 	}
 
-	private String getAmlabsUserData(String customerId) throws KeyManagementException, NoSuchAlgorithmException, IOException {
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
-		interceptors.add(new GetCustomerOperationInterceptor());
-		restTemplate.setInterceptors(interceptors);
-		String retrieveURL = integrationData.getRetrieveURL();
-		if (retrieveURL != null) {
-			ObjectMapper mapper = new ObjectMapper();
-			String jsonData = mapper.writeValueAsString(AmlabsClientRequestData.forId(customerId));
-			String amlabsDataJSON = restTemplate.postForObject(retrieveURL, jsonData, String.class);
-			// GetCustomerData customerData = mapper.readValue(amlabsDataJSON,
-			// GetCustomerData.class);
-			// return customerData.getCustomer();
-			return amlabsDataJSON;
-		}
-		return null;
 
-	}
 
 }

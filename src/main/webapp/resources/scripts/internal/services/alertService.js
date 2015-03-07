@@ -27,11 +27,12 @@ app.factory('alertService', function ($rootScope, $timeout) {
             return false;
         },
 
-        alert: function (msg) {
-            bootbox.setDefaults({ locale: i18NService.getCurrentLanguage() });
+        alert: function (msg,title) {
+        	title = title || "Alerta"
+            bootbox.setDefaults({ locale: 'pt-br' });
             bootbox.alert({
                 message: msg,
-                title: 'Alert',
+                title: title,
                 className: 'smallmodal',
             });
         },

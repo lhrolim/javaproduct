@@ -11,7 +11,6 @@
 
 <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/general.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/client.css" />" rel="stylesheet">
 
 
 

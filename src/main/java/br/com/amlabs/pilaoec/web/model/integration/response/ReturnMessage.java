@@ -1,16 +1,16 @@
 package br.com.amlabs.pilaoec.web.model.integration.response;
 
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ReturnMessage {
 
 	private String[] success;
 	private String[] error;
 	private String successmessage;
+
+	public ReturnMessage() {
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public String[] getError() {
 		return error;
@@ -36,10 +36,19 @@ public class ReturnMessage {
 		this.successmessage = successmessage;
 	}
 
-	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		ReturnMessage data = mapper.readValue(GetCustomerData.class.getResourceAsStream("/amlabs-integration/test.json"), ReturnMessage.class);
-		System.out.println(data);
+	public static ReturnMessage success(String msg) {
+		ReturnMessage returnMessage = new ReturnMessage();
+		returnMessage.setSuccessmessage(msg);
+		returnMessage.setSuccess(new String[] { "OK" });
+		return returnMessage;
 	}
+
+	public static ReturnMessage error(String msg) {
+		ReturnMessage returnMessage = new ReturnMessage();
+		returnMessage.setError(new String[] { msg });
+		return returnMessage;
+	}
+
+
 
 }

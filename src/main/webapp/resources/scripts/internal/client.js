@@ -1,5 +1,3 @@
-
-
 var admin = angular.module('pilaocommerce', [ 'ngSanitize' ]);
 
 admin.controller('ClientController', [ '$scope','$http',

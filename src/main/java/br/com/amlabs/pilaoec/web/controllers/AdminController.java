@@ -6,6 +6,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.amlabs.pilaoec.web.model.User;
 import br.com.amlabs.pilaoec.web.model.UserDAO;
+import br.com.amlabs.pilaoec.web.model.admin.UserSavedResponse;
+import br.com.amlabs.pilaoec.web.model.integration.response.ReturnMessage;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,8 +24,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class AdminController {
 
+	private static final String CRIADO = "Usuário criado com sucesso";
+	private static final String EDITADO = "Usuário salvo com sucesso";
+
 	@Autowired
 	private UserDAO userDAO;
+
+	@Autowired
+	private AmlabsRestManager restManager;
 
 	private static final Logger Log = LogManager.getLogger(AdminController.class);
 
@@ -49,6 +58,19 @@ public class AdminController {
 		Log.info("deleting user " + userid);
 		userDAO.deleteClient(userid);
 		return "";
+	}
+
+	@RequestMapping(value = "/admin/save", method = RequestMethod.POST)
+	@ResponseBody
+	public UserSavedResponse SaveUser(@RequestBody User user) throws JsonProcessingException, InterruptedException {
+		String data = restManager.getAmlabsUserData(user.getAmlabs_id());
+		if (data == null) {
+			return new UserSavedResponse(user, ReturnMessage.error(String.format("AMLABSID %s não exitente", user.getAmlabs_id())));
+		}
+		String msg = user.getId() == null ? CRIADO : EDITADO;
+		user = userDAO.SaveClient(user, user.getNewpassword());
+		return new UserSavedResponse(user, ReturnMessage.success(msg));
+
 	}
 
 }
