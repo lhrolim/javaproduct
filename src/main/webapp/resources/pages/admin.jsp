@@ -187,7 +187,7 @@
 												</div>
 
 												<div class="form-group">
-													<label class="control-label col-sm-4" for="email">Código do Clientes:</label>
+													<label class="control-label col-sm-4" for="email">Código do Cliente:</label>
 													<div class="col-sm-6">
 														<input type="text" class="form-control" ng-model="user.amlabs_id" required>
 													</div>
