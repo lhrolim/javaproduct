@@ -100,9 +100,10 @@ public class UserDAO extends JdbcDaoSupport {
 
 				@Override
 				public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+					String encodedPassword = new ShaPasswordEncoder(512).encodePassword(password, null);
 					PreparedStatement ps = connection.prepareStatement(InsertUserQuery, Statement.RETURN_GENERATED_KEYS);
 					ps.setString(1, user.getLogin());
-					ps.setString(2, password);
+					ps.setString(2, encodedPassword);
 					ps.setString(3, user.getAmlabs_id());
 					ps.setString(4, user.getRemarks());
 					ps.setDouble(5, user.getNormalPrice());
@@ -121,7 +122,8 @@ public class UserDAO extends JdbcDaoSupport {
 			if (StringUtils.isEmpty(password)) {
 				jdbcTemplate.update(UpdateUserNoPasswordQuery, user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
 			} else {
-				jdbcTemplate.update(UpdateUserQuery, password, user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
+				String encodedPassword = new ShaPasswordEncoder(512).encodePassword(password, null);
+				jdbcTemplate.update(UpdateUserQuery, encodedPassword, user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
 			}
 
 		}
