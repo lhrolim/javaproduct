@@ -153,7 +153,7 @@
 											<td>R{{productData.unitprice | currency}}</td>
 											<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.supplyamount">
 											</td>
-											<td>R{{request.shippingvalue | currency}}</td>
+											<td>R{{request.productvalue | currency}}</td>
 										</tr>
 									</tbody>
 								</table>
