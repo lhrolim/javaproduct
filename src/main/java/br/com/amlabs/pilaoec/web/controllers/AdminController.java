@@ -65,7 +65,7 @@ public class AdminController {
 	public UserSavedResponse SaveUser(@RequestBody User user) throws JsonProcessingException, InterruptedException {
 		String data = restManager.getAmlabsUserData(user.getAmlabs_id());
 		if (data == null || data.contains("error")) {
-			return new UserSavedResponse(user, ReturnMessage.error(String.format("AMLABSID %s não existente", user.getAmlabs_id())));
+			return new UserSavedResponse(user, ReturnMessage.error(String.format("Código de cliente %s não existente", user.getAmlabs_id())));
 		}
 		String msg = user.getId() == null ? CRIADO : EDITADO;
 		user = userDAO.SaveClient(user, user.getNewpassword());

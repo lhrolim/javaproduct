@@ -11,7 +11,7 @@ app.factory('alertService', function ($rootScope, $timeout) {
         confirm: function (msg,callbackFunction, cancelcallback) {
             bootbox.confirm({
                 message: msg == null ? defaultDeleteMsg : msg,
-                title: 'Confirm',
+                title: 'Confirmação',
                 className: 'smallmodal',
                 callback: function (result) {
                     if (result == false) {

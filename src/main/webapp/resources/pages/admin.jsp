@@ -100,7 +100,7 @@
 							<thead>
 								<tr>
 									<th st-sort="login">Usuário</th>
-									<th st-sort="amlabs_id">Amlabs Id</th>
+									<th st-sort="amlabs_id">Código do Cliente</th>
 									<th></th>
 								</tr>
 
@@ -187,7 +187,7 @@
 												</div>
 
 												<div class="form-group">
-													<label class="control-label col-sm-4" for="email">Id AMLABS:</label>
+													<label class="control-label col-sm-4" for="email">Código do Clientes:</label>
 													<div class="col-sm-6">
 														<input type="text" class="form-control" ng-model="user.amlabs_id" required>
 													</div>
