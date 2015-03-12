@@ -32,7 +32,7 @@ public class LoginController {
 
 		ModelAndView model = new ModelAndView("login");
 		if (error != null) {
-			model.addObject("error", "Usuário ou senha inválidos");
+			model.addObject("error", true);
 		}
 		return model;
 	}

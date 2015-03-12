@@ -23,11 +23,9 @@
 			<div class="row">
 				<div class="col-sm-6 col-md-4 col-md-offset-4">
 					<div class="account-wall">
-						<img class="profile-img"
-							src="<c:url value="/resources/images/pilao-professional-logo.png" />"
-							alt="">
+						<img class="profile-img" src="<c:url value="/resources/images/pilao-professional-logo.png" />" alt="">
 						<c:if test="${not empty error}">
-							<div class="error-signin">${error}</div>
+							<div class="error-signin">Usuário ou Senha Inválidos</div>
 						</c:if>
 
 						<form class="form-signin" action="<c:url value='/' />"

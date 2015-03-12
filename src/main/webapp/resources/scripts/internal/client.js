@@ -38,13 +38,18 @@ admin.controller('ClientController', [ '$scope','$http','alertService',
 				
 				$scope.active = $scope.amlabsdata.status == "Ativo";
 				
-				$scope.$watch('request.supplyamount',function(newvalue,oldvalue){
-					$scope.request.productvalue =$scope.productData.unitprice * $scope.request.supplyamount;
-				});
-				
+								
 				$scope.$watch('request.leadtype',function(newvalue,oldvalue){
 					var shippingvalue = $scope.request.leadtype == "express" ? $scope.clientData.expressPrice : $scope.clientData.normalPrice;
 					$scope.request.shippingvalue = shippingvalue;
+				});
+				
+				
+				$scope.$watch('request.supplyamount',function(newvalue,oldvalue){
+					if (newvalue == undefined || newvalue < $scope.clientData.minimumrequest){
+						$scope.request.supplyamount = $scope.clientData.minimumrequest;
+					}
+					$scope.request.productvalue =$scope.productData.unitprice * $scope.request.supplyamount;
 				});
 
 			}
@@ -93,7 +98,6 @@ admin.controller('ClientController', [ '$scope','$http','alertService',
 							$scope.completed= true;	
 						}else{
 							$scope.error=true;
-							$scope.errormessage = data.error[0];
 						}
 					}).error(function (data){
 						$scope.submitting = false;

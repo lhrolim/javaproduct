@@ -121,7 +121,7 @@
 					<div ng-show="error">
 						<div class="itemrow">
 							<div class="col col-6of6">
-								<div class="alert alert-danger" role="alert"><icon class="fa fa-check"></icon>Erro ao gerar pedido {{errormessage}}</div>
+								<div class="alert alert-danger" role="alert"><icon class="fa fa-check"></icon>Favor entrar em contato com nossa central de vendas no telefone (11)4533-1322</div>
 								<button class="btn btn-primary" ng-click="newrequest()">Novo Pedido</button>
 							</div>
 						</div>
@@ -153,7 +153,7 @@
 									<tbody>
 										<tr>
 											<td>R{{productData.unitprice | currency}}</td>
-											<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.supplyamount">
+											<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.supplyamount" >
 											</td>
 											<td>R{{request.productvalue | currency}}</td>
 										</tr>
