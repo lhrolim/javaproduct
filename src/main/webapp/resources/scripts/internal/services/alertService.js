@@ -9,6 +9,7 @@ app.factory('alertService', function ($rootScope, $timeout) {
         },
 
         confirm: function (msg,callbackFunction, cancelcallback) {
+        	bootbox.setDefaults({ locale: 'br' });
             bootbox.confirm({
                 message: msg == null ? defaultDeleteMsg : msg,
                 title: 'Confirmação',
@@ -22,7 +23,9 @@ app.factory('alertService', function ($rootScope, $timeout) {
                         return;
                     }
                     callbackFunction();
-                }
+                },
+                cancel: 'Cancelar'
+            	
             });
             return false;
         },

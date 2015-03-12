@@ -17,6 +17,7 @@
 
 
 <script src="<c:url value="/resources/vendorscripts/jquery.js" />"></script>
+<script src="<c:url value="/resources/scripts/util/dateutil.js" />" charset="utf-8"></script>
 <script src="<c:url value="/resources/vendorscripts/bootbox.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/spin.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angular.js" />"></script>
@@ -25,6 +26,7 @@
 
 
 <script src="<c:url value="/resources/scripts/client.js" />" charset="utf-8"></script>
+<script src="<c:url value="/resources/scripts/services/alertService.js" /> " charset="utf-8"></script>
 <script src="<c:url value="/resources/scripts/ajax_interceptor.js" />"></script>
 
 
@@ -52,7 +54,7 @@
 		<div id="headerShadow" class="header-shadow"></div>
 		<div class="header">
 			<a class="logo"> <img src="<c:url value="/resources/images/pilao-professional-logo.png" />" alt="PIlão Professional">
-			</a> <span class="headertext">Dúvidas? Entre em contato com a nossa central de vendas! (11)1234-1234</span> <span> <img
+			</a> <span class="headertext">Dúvidas? Entre em contato com a nossa central de vendas! (11)4533-1322</span> <span> <img
 				src="<c:url value="/resources/images/ajax-loader.gif" />" id="loading-indicator" style="display: none"> <img src=""> <span
 				class="logout"><i class="fa fa-user"></i> ${pageContext.request.userPrincipal.name} | <i class="fa fa-sign-out"></i><a
 					href="javascript:formSubmit()"> Sair</a> </span>
@@ -128,7 +130,7 @@
 					<div ng-show="!active">
 						<div class="itemrow">
 							<div class="col col-6of6">
-								<div class="alert alert-danger" role="alert"><icon class="fa fa-check"></icon>Usuário Inativo. Favor entrar em contato com nossa central de vendas no telefone (xx) xxxx-xxxx</div>
+								<div class="alert alert-danger" role="alert"><icon class="fa fa-check"></icon>Favor entrar em contato com nossa central de vendas no telefone (11)4533-1322</div>
 							</div>
 						</div>
 					</div>

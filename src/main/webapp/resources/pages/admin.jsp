@@ -55,7 +55,7 @@
 		<div id="headerShadow" class="header-shadow"></div>
 		<div class="header">
 			<a class="logo"> <img src="<c:url value="/resources/images/pilao-professional-logo.png" />" alt="PIlão Professional">
-			</a> <span class="headertext">Dúvidas? Entre em contato com a nossa central de vendas! (11)1234-1234</span> <span> <img
+			</a> <span class="headertext">Dúvidas? Entre em contato com a nossa central de vendas! (11)4533-1322</span> <span> <img
 				src="<c:url value="/resources/images/ajax-loader.gif" />" id="loading-indicator" style="display: none"> <img src=""> <span
 				class="logout"><i class="fa fa-user"></i> ${pageContext.request.userPrincipal.name} | <i class="fa fa-sign-out"></i><a
 					href="javascript:formSubmit()"> Sair</a> </span>

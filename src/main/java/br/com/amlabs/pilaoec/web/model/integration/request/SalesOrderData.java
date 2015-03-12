@@ -6,6 +6,7 @@ public class SalesOrderData {
 	private Double shippingvalue;
 	private Integer supplyamount;
 	private String comments;
+	private long shippingdate;
 
 	public Integer getCustomerid() {
 		return customerid;
@@ -37,6 +38,14 @@ public class SalesOrderData {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+
+	public long getShippingdate() {
+		return shippingdate;
+	}
+
+	public void setShippingdate(long shippingdate) {
+		this.shippingdate = shippingdate;
 	}
 
 }
