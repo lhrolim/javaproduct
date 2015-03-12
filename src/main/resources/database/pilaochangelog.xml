@@ -36,6 +36,9 @@
 		<addUniqueConstraint columnNames="amlabs_id" tableName="sec_user" constraintName="uq_amlabsid"/>
 	</changeSet>
 
+	<changeSet id="3" author="rolim">
+		<dropUniqueConstraint constraintName="uq_amlabsid" tableName="sec_user"/>
+	</changeSet>
 	
 
 	

@@ -31,9 +31,9 @@ public class UserDAO extends JdbcDaoSupport {
 
 	private static final String InsertUserQuery = "INSERT INTO sec_user (login,password,amlabs_id,remarks,normalprice,expressprice,normalleadtime,expressleadtime,minimumrequest,admin) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
-	private static final String UpdateUserQuery = "update sec_user set password = ?,amlabs_id =?, remarks = ?,normalprice =? ,expressprice =? ,normalleadtime =? ,expressleadtime = ?,minimumrequest = ? where id = ? ";
+	private static final String UpdateUserQuery = "update sec_user set login=?,password = ?,amlabs_id =?, remarks = ?,normalprice =? ,expressprice =? ,normalleadtime =? ,expressleadtime = ?,minimumrequest = ? where id = ? ";
 
-	private static final String UpdateUserNoPasswordQuery = "update sec_user set amlabs_id =?, remarks = ?,normalprice =? ,expressprice =? ,normalleadtime =? ,expressleadtime = ?,minimumrequest = ? where id = ? ";
+	private static final String UpdateUserNoPasswordQuery = "update sec_user set login=?,amlabs_id =?, remarks = ?,normalprice =? ,expressprice =? ,normalleadtime =? ,expressleadtime = ?,minimumrequest = ? where id = ? ";
 
 	String TABLE_NAME = "tableName";
 	String GENERATED_KEY = "generatedKey";
@@ -120,10 +120,10 @@ public class UserDAO extends JdbcDaoSupport {
 		} else {
 
 			if (StringUtils.isEmpty(password)) {
-				jdbcTemplate.update(UpdateUserNoPasswordQuery, user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
+				jdbcTemplate.update(UpdateUserNoPasswordQuery, user.getLogin(), user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
 			} else {
 				String encodedPassword = new ShaPasswordEncoder(512).encodePassword(password, null);
-				jdbcTemplate.update(UpdateUserQuery, encodedPassword, user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
+				jdbcTemplate.update(UpdateUserQuery, user.getLogin(), encodedPassword, user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
 			}
 
 		}

@@ -55,7 +55,8 @@ admin.controller('AdminController', [ '$scope','paginationService','alertService
 			var idx= -1;
 			for (var i=0; i<users.length;i++){
 				if (users[i].id == user.id){
-					idx =1;
+					idx =i;
+					break;
 				}
 			}
 			if (idx==-1){
