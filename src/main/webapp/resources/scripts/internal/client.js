@@ -87,7 +87,7 @@ admin.controller('ClientController', [ '$scope','$http','alertService',
 			}
 			
 			$scope.submit = function(){
-				alertService.confirm("Deseja confirmar e enviar o pedido à Pilão Professional?", function(){
+				alertService.confirm("Deseja confirmar o pedido de compra e autorizar o faturamento automático, conforme as condições descritas no orçamento?", function(){
 					$scope.submitting = true;
 					var serverPath = $('#serverpath').val();
 					$scope.request.comments = $scope.clientData.remarks;

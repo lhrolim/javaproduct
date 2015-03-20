@@ -112,7 +112,7 @@
 					<div ng-show="completed">
 						<div class="itemrow">
 							<div class="col col-6of6">
-								<div class="alert alert-success" role="alert"><icon class="fa fa-check"></icon> Pedido realizado com sucesso! Você receberá um email de confirmação em breve</div>
+								<div class="alert alert-success" role="alert"><icon class="fa fa-check"></icon> Pedido realizado com sucesso! Você receberá um e-mail de confirmação com o número do pedido e os arquivos de nota fiscal e boleto</div>
 								<button class="btn btn-primary" ng-click="newrequest()">Novo Pedido</button>
 							</div>
 						</div>
