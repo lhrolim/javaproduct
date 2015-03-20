@@ -18,6 +18,7 @@
 
 <script src="<c:url value="/resources/vendorscripts/jquery.js" />"></script>
 <script src="<c:url value="/resources/scripts/util/dateutil.js" />" charset="utf-8"></script>
+<script src="<c:url value="/resources/scripts/util/stringutil.js" />" charset="utf-8"></script>
 <script src="<c:url value="/resources/vendorscripts/bootbox.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/spin.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angular.js" />"></script>
@@ -112,25 +113,34 @@
 					<div ng-show="completed">
 						<div class="itemrow">
 							<div class="col col-6of6">
-								<div class="alert alert-success" role="alert"><icon class="fa fa-check"></icon> Pedido realizado com sucesso! Você receberá um e-mail de confirmação com o número do pedido e os arquivos de nota fiscal e boleto</div>
+								<div class="alert alert-success" role="alert">
+									<icon class="fa fa-check"></icon>
+									Pedido realizado com sucesso! Você receberá um e-mail de confirmação com o número do pedido e os arquivos de nota fiscal e boleto
+								</div>
 								<button class="btn btn-primary" ng-click="newrequest()">Novo Pedido</button>
 							</div>
 						</div>
 					</div>
-					
+
 					<div ng-show="error">
 						<div class="itemrow">
 							<div class="col col-6of6">
-								<div class="alert alert-danger" role="alert"><icon class="fa fa-check"></icon>Favor entrar em contato com nossa central de vendas no telefone (11)4533-1322</div>
+								<div class="alert alert-danger" role="alert">
+									<icon class="fa fa-check"></icon>
+									Favor entrar em contato com nossa central de vendas no telefone (11)4533-1322
+								</div>
 								<button class="btn btn-primary" ng-click="newrequest()">Novo Pedido</button>
 							</div>
 						</div>
 					</div>
-					
+
 					<div ng-show="!active">
 						<div class="itemrow">
 							<div class="col col-6of6">
-								<div class="alert alert-danger" role="alert"><icon class="fa fa-check"></icon>Favor entrar em contato com nossa central de vendas no telefone (11)4533-1322</div>
+								<div class="alert alert-danger" role="alert">
+									<icon class="fa fa-check"></icon>
+									Favor entrar em contato com nossa central de vendas no telefone (11)4533-1322
+								</div>
 							</div>
 						</div>
 					</div>
@@ -153,7 +163,7 @@
 									<tbody>
 										<tr>
 											<td>R{{productData.unitprice | currency}}</td>
-											<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.supplyamount" >
+											<td><input type="number" class="form-control" style="width: 75px" min="{{clientData.minimumrequest}}" ng-model="request.supplyamount">
 											</td>
 											<td>R{{request.productvalue | currency}}</td>
 										</tr>
@@ -173,7 +183,8 @@
 									<tbody>
 										<tr>
 											<td style="width: 280px;"><br>{{amlabsdata.tradingname}}<br>{{amlabsdata.name}}<br>{{amlabsdata.cnpj}}</td>
-											<td><br>{{amlabsdata.address}}, {{amlabsdata.nro}} , {{amlabsdata.complement}} <br>{{amlabsdata.neighborhood}}<br>{{amlabsdata.city}},{{amlabsdata.state}}, {{amlabsdata.zipcode}}</td>
+											<td><br>{{amlabsdata.address}}, {{amlabsdata.nro}} , {{amlabsdata.complement}} <br>{{amlabsdata.neighborhood}}<br>{{amlabsdata.city}},{{amlabsdata.state}},
+												{{amlabsdata.zipcode}}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -200,6 +211,70 @@
 									Finalizar Pedido</input>
 							</div>
 						</div>
+
+						<div id="confirmationform" style="display: none">
+
+							<!-- 							<form class="form-horizontal" role="form"> -->
+							<!-- 								<div class="form-group"> -->
+							<!-- 									<label class="control-label col-sm-4">Quantidade Solicitada:</label> -->
+							<!-- 									<div class="col-sm-6"> -->
+							<!-- 										{{request.supplyamount}} -->
+							<!-- 									</div> -->
+							<!-- 								</div> -->
+
+							<!-- 							</form> -->
+
+
+							<div class="itemrow">
+								<table>
+									<thead>
+										<th colspan="2"><label class="control-label" style="font-size: 20px">Dados do Pedido:</label></th>
+									</thead>
+									<tbody>
+										<tr>
+											<td><br>Quantidade Solicitada: {{request.supplyamount}} itens <br>Tipo de Entrega: {{getSelectedShippingLabel()}}<br>Valor Total:</label> <label class="control-label">R{{getTotalPrice()| currency}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="itemrow">
+								<table>
+									<thead>
+										<th colspan="2"><label class="control-label" style="font-size: 20px">Dados do Cliente:</label></th>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="width: 280px;"><br>{{amlabsdata.tradingname}}<br>{{amlabsdata.name}}<br>{{amlabsdata.cnpj}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+
+							<div class="itemrow">
+								<table>
+									<thead>
+										<th colspan="2"><label class="control-label" style="font-size: 20px">Endereço de Entrega:</label></th>
+									</thead>
+									<tbody>
+										<tr>
+											<td><br>{{amlabsdata.address}}, {{amlabsdata.nro}} , {{amlabsdata.complement}} <br>{{amlabsdata.neighborhood}}<br>{{amlabsdata.city}},{{amlabsdata.state}},
+												{{amlabsdata.zipcode}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+
+
+							<div class="itemrow">
+								<label class="control-label">Deseja confirmar o pedido de compra e autorizar o faturamento automático, conforme as condições descritas
+									no orçamento?</label>
+							</div>
+
+						</div>
+
 					</div>
 				</div>
 			</div>

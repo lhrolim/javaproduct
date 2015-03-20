@@ -75,7 +75,6 @@ admin.controller('ClientController', [ '$scope','$http','alertService',
 				$scope.request.shippingvalue = shippingvalue;
 				$scope.submitting = false;
 				$scope.completed= false;
-				$scope.error=false;
 			}
 			
 			$scope.buildShippingDate = function(){
@@ -86,23 +85,50 @@ admin.controller('ClientController', [ '$scope','$http','alertService',
 				return futureDate.getTime();
 			}
 			
+			$scope.getSelectedShippingLabel = function (){
+				if ($scope.request.leadtype == "express"){
+					return "Expressa ({0} dias úteis)".format($scope.clientData.expressLeadTime);
+				}
+				return "Normal ({0} dias úteis)".format($scope.clientData.normalLeadTime);
+				
+			}
+			
 			$scope.submit = function(){
-				alertService.confirm("Deseja confirmar o pedido de compra e autorizar o faturamento automático, conforme as condições descritas no orçamento?", function(){
-					$scope.submitting = true;
-					var serverPath = $('#serverpath').val();
-					$scope.request.comments = $scope.clientData.remarks;
-					$scope.request.shippingdate = $scope.buildShippingDate(); 
-					$http.post(serverPath + "submitclient",$scope.request).success(function (data) {
-						$scope.submitting = false;
-						if (data.success){
-							$scope.completed= true;	
-						}else{
-							$scope.error=true;
-						}
-					}).error(function (data){
-						$scope.submitting = false;
-						$scope.error=true;
-					});
+				// "Deseja confirmar o pedido de compra e autorizar o
+				// faturamento automático, conforme as condições descritas no
+				// orçamento?"
+				
+				var form = $("#confirmationform");
+				var html = $(form)[0].innerHTML;
+				
+				bootbox.dialog({
+					  message:html,
+				      title: "Resumo do Pedido",
+					  buttons: {
+		                    success: {
+		                        label: "Confirmar",
+		                        className: "btn-success",
+		                        callback:function(){
+									$scope.submitting = true;
+									var serverPath = $('#serverpath').val();
+									$scope.request.comments = $scope.clientData.remarks;
+									$scope.request.shippingdate = $scope.buildShippingDate(); 
+									$http.post(serverPath + "submitclient",$scope.request).success(function (data) {
+										$scope.submitting = false;
+										if (data.success){
+											$scope.completed= true;	
+										}else{
+											$scope.submitting = false;
+										}
+										})
+		                        }
+		                    },
+		                    cancel:{
+		                    	label:"Cancelar",
+		                    	className:"btn-cancel"
+		                    }
+		                    
+					  }
 	
 				});
 				
