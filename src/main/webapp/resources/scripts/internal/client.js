@@ -1,7 +1,7 @@
 var admin = angular.module('pilaocommerce', [ 'ngSanitize' ]);
 
-admin.controller('ClientController', [ '$scope','$http','alertService',
-		function($scope,$http,alertService) {
+admin.controller('ClientController', [ '$scope','$http','alertService','$log',
+		function($scope,$http,alertService,$log) {
 
 	
 	
@@ -31,12 +31,17 @@ admin.controller('ClientController', [ '$scope','$http','alertService',
 					leadtype : "express",
 					productid: $scope.productData.productid,
 					customerid : $scope.amlabsdata.customerid,
+					natop: $scope.clientData.nature,
 				};
 				
 				
 				$scope.request.productvalue = $scope.productData.unitprice * $scope.request.supplyamount;;
 				
 				$scope.active = $scope.amlabsdata.status == "Ativo";
+				
+				if (!$scope.active){
+					$log.debug ('Sistema desabilitado devido ao status do cliente ' + $scope.amlabsdata.status);
+				}
 				
 								
 				$scope.$watch('request.leadtype',function(newvalue,oldvalue){
@@ -63,11 +68,13 @@ admin.controller('ClientController', [ '$scope','$http','alertService',
 
 			$scope.newrequest = function(value) {
 				var clientData = $scope.clientData;
+				$scope.error=false;
 				$scope.request = {
 					supplyamount: $scope.clientData.minimumrequest,
 					leadtype : "express",
 					productid: $scope.productData.productid,
 					customerid : $scope.amlabsdata.customerid,
+					natop: $scope.clientData.nature,
 					shippingvalue:0
 				};
 				$scope.request.productvalue =$scope.productData.unitprice * $scope.request.supplyamount;
@@ -119,6 +126,7 @@ admin.controller('ClientController', [ '$scope','$http','alertService',
 											$scope.completed= true;	
 										}else{
 											$scope.submitting = false;
+											$scope.error= true;
 										}
 										})
 		                        }

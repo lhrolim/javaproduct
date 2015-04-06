@@ -19,7 +19,7 @@
 <script src="<c:url value="/resources/vendorscripts/jquery.js" />"></script>
 <script src="<c:url value="/resources/scripts/util/dateutil.js" />" charset="utf-8"></script>
 <script src="<c:url value="/resources/scripts/util/stringutil.js" />" charset="utf-8"></script>
-<script src="<c:url value="/resources/vendorscripts/bootbox.js" />"></script>
+<script src="<c:url value="/resources/vendorscripts/bootbox.js" />" charset="utf-8"></script>
 <script src="<c:url value="/resources/vendorscripts/spin.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angular.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angular-sanitize.js" />"></script>
@@ -259,7 +259,7 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td><br>{{amlabsdata.address}}, {{amlabsdata.nro}} , {{amlabsdata.complement}} <br>{{amlabsdata.neighborhood}}<br>{{amlabsdata.city}},{{amlabsdata.state}},
+											<td><br>{{amlabsdata.address}}, {{amlabsdata.nro}} <span ng-if="amlabsdata.complement">,</span> {{amlabsdata.complement}} <br>{{amlabsdata.neighborhood}}<br>{{amlabsdata.city}},{{amlabsdata.state}},
 												{{amlabsdata.zipcode}}</td>
 										</tr>
 									</tbody>

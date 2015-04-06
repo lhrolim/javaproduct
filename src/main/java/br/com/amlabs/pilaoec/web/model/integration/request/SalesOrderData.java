@@ -7,6 +7,7 @@ public class SalesOrderData {
 	private Integer supplyamount;
 	private String comments;
 	private long shippingdate;
+	private Integer natop;
 
 	public Integer getCustomerid() {
 		return customerid;
@@ -46,6 +47,14 @@ public class SalesOrderData {
 
 	public void setShippingdate(long shippingdate) {
 		this.shippingdate = shippingdate;
+	}
+
+	public Integer getNatop() {
+		return natop;
+	}
+
+	public void setNatop(Integer natop) {
+		this.natop = natop;
 	}
 
 }

@@ -18,7 +18,7 @@
 
 <script src="<c:url value="/resources/vendorscripts/jquery.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/spin.js" />"></script>
-<script src="<c:url value="/resources/vendorscripts/bootbox.js" />"></script>
+<script src="<c:url value="/resources/vendorscripts/bootbox.js" />" charset="utf-8"></script>
 <script src="<c:url value="/resources/vendorscripts/angular.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/angularsmarttable.js" />"></script>
 <script src="<c:url value="/resources/vendorscripts/bootstrap.js" />"></script>
@@ -192,6 +192,19 @@
 														<input type="text" class="form-control" ng-model="user.amlabs_id" required>
 													</div>
 												</div>
+												
+												<div class="form-group">
+													<label class="control-label col-sm-4" for="email">Natureza de Operação:</label>
+													<div class="col-sm-6">
+														<select class="form-control" ng-model="user.nature">
+															<option value="1">Venda</option>
+															<option value="38">Venda com ST</option>
+															<option value="39">Venda não contribuinte</option>
+														</select>
+													</div>
+												</div>
+												
+												
 
 												<div class="form-group">
 													<label class="control-label col-sm-4" for="email">Preço Entrega Normal:</label>

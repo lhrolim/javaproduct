@@ -33,10 +33,12 @@ admin.controller('AdminController', [ '$scope','paginationService','alertService
 	$scope.createUser = function(){
 		 $('#usermodal').modal('show');
 		 $scope.modaltitle = "Criar Usuário";
+		 $scope.passwordplaceholder = null;
 		 $scope.user = {
 			 minimumrequest:1,
 			 normalLeadTime:5,
 			 expressLeadTime:5,
+			 nature:1
 		 };
 	}
 	

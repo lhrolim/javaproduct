@@ -29,11 +29,11 @@ public class UserDAO extends JdbcDaoSupport {
 	@Autowired
 	private DataSource datasource;
 
-	private static final String InsertUserQuery = "INSERT INTO sec_user (login,password,amlabs_id,remarks,normalprice,expressprice,normalleadtime,expressleadtime,minimumrequest,admin) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	private static final String InsertUserQuery = "INSERT INTO sec_user (login,password,amlabs_id,nature,remarks,normalprice,expressprice,normalleadtime,expressleadtime,minimumrequest,admin) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
-	private static final String UpdateUserQuery = "update sec_user set login=?,password = ?,amlabs_id =?, remarks = ?,normalprice =? ,expressprice =? ,normalleadtime =? ,expressleadtime = ?,minimumrequest = ? where id = ? ";
+	private static final String UpdateUserQuery = "update sec_user set login=?,password = ?,amlabs_id =?, nature=?, remarks = ?,normalprice =? ,expressprice =? ,normalleadtime =? ,expressleadtime = ?,minimumrequest = ? where id = ? ";
 
-	private static final String UpdateUserNoPasswordQuery = "update sec_user set login=?,amlabs_id =?, remarks = ?,normalprice =? ,expressprice =? ,normalleadtime =? ,expressleadtime = ?,minimumrequest = ? where id = ? ";
+	private static final String UpdateUserNoPasswordQuery = "update sec_user set login=?,amlabs_id =?,nature=?, remarks = ?,normalprice =? ,expressprice =? ,normalleadtime =? ,expressleadtime = ?,minimumrequest = ? where id = ? ";
 
 	String TABLE_NAME = "tableName";
 	String GENERATED_KEY = "generatedKey";
@@ -105,13 +105,14 @@ public class UserDAO extends JdbcDaoSupport {
 					ps.setString(1, user.getLogin());
 					ps.setString(2, encodedPassword);
 					ps.setString(3, user.getAmlabs_id());
-					ps.setString(4, user.getRemarks());
-					ps.setDouble(5, user.getNormalPrice());
-					ps.setDouble(6, user.getExpressPrice());
-					ps.setDouble(7, user.getNormalLeadTime());
-					ps.setDouble(8, user.getExpressLeadTime());
-					ps.setInt(9, user.getMinimumrequest());
-					ps.setBoolean(10, false);
+					ps.setInt(4, user.getNature());
+					ps.setString(5, user.getRemarks());
+					ps.setDouble(6, user.getNormalPrice());
+					ps.setDouble(7, user.getExpressPrice());
+					ps.setDouble(8, user.getNormalLeadTime());
+					ps.setDouble(9, user.getExpressLeadTime());
+					ps.setInt(10, user.getMinimumrequest());
+					ps.setBoolean(11, false);
 					return ps;
 				}
 			}, keyHolder);
@@ -120,10 +121,10 @@ public class UserDAO extends JdbcDaoSupport {
 		} else {
 
 			if (StringUtils.isEmpty(password)) {
-				jdbcTemplate.update(UpdateUserNoPasswordQuery, user.getLogin(), user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
+				jdbcTemplate.update(UpdateUserNoPasswordQuery, user.getLogin(), user.getAmlabs_id(), user.getNature(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
 			} else {
 				String encodedPassword = new ShaPasswordEncoder(512).encodePassword(password, null);
-				jdbcTemplate.update(UpdateUserQuery, user.getLogin(), encodedPassword, user.getAmlabs_id(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
+				jdbcTemplate.update(UpdateUserQuery, user.getLogin(), encodedPassword, user.getAmlabs_id(), user.getNature(), user.getRemarks(), user.getNormalPrice(), user.getExpressPrice(), user.getNormalLeadTime(), user.getExpressLeadTime(), user.getMinimumrequest(), user.getId());
 			}
 
 		}

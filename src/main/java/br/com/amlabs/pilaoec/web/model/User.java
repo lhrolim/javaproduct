@@ -18,6 +18,7 @@ public class User implements IBaseEntity {
 	private Double expressPrice;
 	private Integer normalLeadTime;
 	private Integer expressLeadTime;
+	private Integer nature;
 	private Integer minimumrequest;
 	private AmlabsCustomerData amlabsData;
 
@@ -26,7 +27,7 @@ public class User implements IBaseEntity {
 
 	}
 
-	public User(String login, Boolean admin, String amlabs_id, String remarks, Double normalPrice, Double expressPrice, Integer normalLeadTime, Integer expressLeadTime, Integer minimumrequest) {
+	public User(String login, Boolean admin, String amlabs_id, String remarks, Double normalPrice, Double expressPrice, Integer normalLeadTime, Integer expressLeadTime, Integer minimumrequest, Integer nature) {
 		super();
 		this.login = login;
 		this.admin = admin;
@@ -37,6 +38,7 @@ public class User implements IBaseEntity {
 		this.normalLeadTime = normalLeadTime;
 		this.expressLeadTime = expressLeadTime;
 		this.minimumrequest = minimumrequest;
+		this.nature = nature;
 	}
 
 	public Integer getId() {
@@ -61,6 +63,14 @@ public class User implements IBaseEntity {
 
 	public void setAmlabs_id(String amlabs_id) {
 		this.amlabs_id = amlabs_id;
+	}
+
+	public Integer getNature() {
+		return nature;
+	}
+
+	public void setNature(Integer nature) {
+		this.nature = nature;
 	}
 
 	public String getRemarks() {

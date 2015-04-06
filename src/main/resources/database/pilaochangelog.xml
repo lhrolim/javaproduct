@@ -40,6 +40,12 @@
 		<dropUniqueConstraint constraintName="uq_amlabsid" tableName="sec_user"/>
 	</changeSet>
 	
+	<changeSet id="4" author="rolim">
+		<addColumn tableName="sec_user">
+			<column name="nature" type="java.sql.Types.VARCHAR(100)"/>
+		</addColumn>
+	</changeSet>
+	
 
 	
 
