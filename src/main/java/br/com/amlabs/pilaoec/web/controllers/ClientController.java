@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -46,6 +48,8 @@ public class ClientController {
 	private AmlabsRestManager amlabsRestManager;
 
 	private CredentialsData credentialsData;
+
+	private static final Logger LOG = LogManager.getLogger(ClientController.class);
 
 	public ClientController() {
 		super();
@@ -102,6 +106,10 @@ public class ClientController {
 		String jsonData = mapper.writeValueAsString(new OrderRequestData(credentialsData, data));
 		String result = restTemplate.postForObject(saveURL, jsonData, String.class);
 		ReturnMessage resultMessage = mapper.readValue(result, ReturnMessage.class);
+		if (resultMessage.getError() != null) {
+			LOG.warn(String.format("error trying to submit sales order. Errors: %s", liquibase.util.StringUtils.join(resultMessage.getError(), ",")));
+		}
+
 		return resultMessage;
 	}
 
